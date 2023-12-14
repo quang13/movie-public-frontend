@@ -59,6 +59,8 @@ export default function LayoutComponent({
       <Image
         src={e.thumbnail}
         fill
+        sizes="(min-width: 320px) 100vw"
+        loading="lazy"
         alt={e.title as string}
         placeholder="blur"
         blurDataURL="/blur_img.webp"
@@ -126,6 +128,8 @@ export default function LayoutComponent({
                 src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
                 fill
                 alt=""
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
               />
             </Link>
             <Link
@@ -138,6 +142,8 @@ export default function LayoutComponent({
                 src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
                 fill
                 alt=""
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
               />
             </Link>
           </div>
@@ -152,6 +158,8 @@ export default function LayoutComponent({
                 src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
                 fill
                 alt=""
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
               />
             </Link>
             <Link
@@ -164,6 +172,8 @@ export default function LayoutComponent({
                 src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
                 fill
                 alt=""
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
               />
             </Link>
           </div>
@@ -179,24 +189,26 @@ export default function LayoutComponent({
               src="https://chaolua3.live/images/08/120-x-600-VTM.gif"
               fill
               alt=""
+              sizes="(min-width: 320px) 100vw"
+              loading="lazy"
             />
           </Link>
           <div className="children-wrapper relative z-10 flex items-start gap-2">
             {children}
-            <div className="w-full 2lg:w-fit">
+            <div className="2lg:w-fit w-full">
               <div className="comming-soon-films h-full">
                 <p className="big-title mb-6 border-b-2 border-dashed border-b-[#5142FC] pb-2 text-xl font-semibold text-white">
                   Phim SẮP CHIẾU
                 </p>
-                <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
+                <div className="2lg:w-[250px] h-auto w-full xl:w-[300px]">
                   <CommingSoonComponent />
                 </div>
               </div>
-              <div className="comming-soon-films h-full mt-10">
+              <div className="comming-soon-films mt-10 h-full">
                 <p className="big-title border-b-[#5142FC] pb-2 text-xl font-semibold text-white">
                   Phim SẮP CHIẾU
                 </p>
-                <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
+                <div className="2lg:w-[250px] h-auto w-full xl:w-[300px]">
                   <CommingSoonComponent />
                 </div>
               </div>
@@ -212,7 +224,8 @@ export default function LayoutComponent({
               src="https://chaolua3.live/images/08/120-x-600-VTM.gif"
               fill
               alt=""
-              rel="nofollow"
+              sizes="(min-width: 320px) 100vw"
+              loading="lazy"
             />
           </Link>
           <div className="fixed bottom-0 left-0 z-20 mx-auto flex w-full justify-center">

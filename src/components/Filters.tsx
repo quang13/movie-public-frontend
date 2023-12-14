@@ -17,6 +17,7 @@ function FiltersComponent({
   setFetching,
   onSubmit,
   keyword,
+  isSearching = false,
 }: {
   filters: any;
   setFilters: any;
@@ -24,6 +25,7 @@ function FiltersComponent({
   setFetching: any;
   onSubmit: any;
   keyword?: string;
+  isSearching?: boolean;
 }) {
   const [form] = Form.useForm();
 
@@ -82,27 +84,31 @@ function FiltersComponent({
         layout="vertical"
         requiredMark
         className="custom-form-filters rounded-lg p-3"
-        onValuesChange={(x, y) => {
-          console.log("hehehee", x, y);
-        }}
+        // onValuesChange={(x, y) => {
+        //   console.log("hehehee", x, y);
+        // }}
       >
-        <Row gutter={16}>
-          <Col span={16}>
-            <Form.Item
-              initialValue={keyword}
-              name="keyword"
-              label={<span className="text-white">Nhập từ khoá tìm kiếm</span>}
-              rules={[{ required: false }]}
-            >
-              <Input
-                className="w-full"
-                placeholder="Nhập từ khoá tìm kiếm"
-                autoFocus
-                onChange={handleSearchInputChange}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+        {isSearching && (
+          <Row gutter={16}>
+            <Col span={16}>
+              <Form.Item
+                initialValue={keyword}
+                name="keyword"
+                label={
+                  <span className="text-white">Nhập từ khoá tìm kiếm</span>
+                }
+                rules={[{ required: false }]}
+              >
+                <Input
+                  className="w-full"
+                  placeholder="Nhập từ khoá tìm kiếm"
+                  autoFocus
+                  onChange={handleSearchInputChange}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        )}
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item name="category" rules={[{ required: false }]}>
@@ -169,4 +175,4 @@ function FiltersComponent({
   );
 }
 
-export default React.memo(FiltersComponent)
+export default React.memo(FiltersComponent);

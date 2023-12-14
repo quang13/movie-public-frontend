@@ -81,6 +81,7 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
         setFetching={setFetchingData}
         onSubmit={getDataFilm}
         keyword={query}
+        isSearching={true}
       />
       <div className="data-list-film my-6 flex flex-wrap items-start gap-2">
         <ListFilmItemComponent listFilm={dataFilm?.result} />

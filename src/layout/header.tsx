@@ -6,7 +6,7 @@ import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
 import { FaHome } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
 
@@ -57,8 +57,7 @@ const menus = [
 ];
 
 export default function HeaderComponent() {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const [categories, setCategories] = useState<any[]>([]);
   const [countries, setCountries] = useState<any[]>([]);
@@ -66,7 +65,7 @@ export default function HeaderComponent() {
   useEffect(() => {
     getListCategory()
       .then((value) => setCategories(value))
-      .catch((e) => setCategories([]));
+      .catch(() => setCategories([]));
 
     getListCountry()
       .then((value) => setCountries(value))
@@ -77,7 +76,7 @@ export default function HeaderComponent() {
     e.preventDefault();
     const keyword = e.target[0].value;
     if (!keyword) return toast.error("Vui lòng nhập từ khoá");
-    router.push(`/search?query=${keyword}`)
+    router.push(`/search?query=${keyword}`);
   };
 
   const showMenuMobile = (e: any) => {
@@ -86,22 +85,30 @@ export default function HeaderComponent() {
     listMenu.classList.toggle("active");
   };
 
+  const path = usePathname();
+
+  console.log("ewewew", path);
+
+  const changeLink = (e: any) => {};
+
   return (
     <header
       id="header-container w-full max-w-[1440px] px-4"
       className="md:border-b md:border-b-blueSecondary"
     >
       <div className="ads-top-header"></div>
-      <div className="search-logo flex flex-col sm:flex-row gap-8 items-center justify-between p-4 mx-auto max-w-[1440px]">
-        <Link className="text-4xl font-bold" href="/">LOGO</Link>
-        <div className="fav-search flex items-center gap-6 w-full sm:w-auto">
+      <div className="search-logo mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-8 p-4 sm:flex-row">
+        <Link className="text-4xl font-bold" href="/">
+          LOGO
+        </Link>
+        <div className="fav-search flex w-full items-center gap-6 sm:w-auto">
           <form
-            className="search-item relative flex items-center w-full sm:w-auto"
+            className="search-item relative flex w-full items-center sm:w-auto"
             onSubmit={onSubmitSearch}
           >
             <input
               autoFocus
-              className="fill-keyword rounded-3xl border border-[#5142FC] p-2 pr-[95px] text-sm text-[#5142FC] w-full sm:w-[300px]"
+              className="fill-keyword w-full rounded-3xl border border-[#5142FC] p-2 pr-[95px] text-sm text-[#5142FC] sm:w-[300px]"
               placeholder="Nhập từ khoá tìm kiếm..."
             />
             <Button
@@ -117,11 +124,11 @@ export default function HeaderComponent() {
         <button
           type="button"
           onClick={showMenuMobile}
-          className="toggle-menu-mobile ml-4 md:ml-0 md:hidden rounded-full p-1 text-white transition-all duration-300 hover:bg-white hover:text-blueSecondary"
+          className="toggle-menu-mobile ml-4 rounded-full p-1 text-white transition-all duration-300 hover:bg-white hover:text-blueSecondary md:ml-0 md:hidden"
         >
           <IoIosMenu size={24} className="" />
         </button>
-        <ul className="menu-container max-w-[1440px] mx-auto relative flex items-center justify-center gap-4">
+        <ul className="menu-container relative mx-auto flex max-w-[1440px] items-center justify-center gap-4">
           {menus.map((e) => {
             if (e.sub) {
               let submenu = [];
@@ -148,10 +155,17 @@ export default function HeaderComponent() {
                       <ul className="submenu w-full" id="submenu">
                         {submenu?.map((val) => (
                           <li
+                            role="button"
                             key={val.slug}
                             className="chilren-item relative border-b border-b-blueSecondary py-2 text-sm font-normal capitalize transition-all duration-300 hover:cursor-pointer hover:text-blueSecondary"
                           >
-                            <Link href={`/${val.slug}`}>{val.label}</Link>
+                            <Link
+                              href={`/${
+                                e.name === "Thể loại" ? "the-loai" : "quoc-gia"
+                              }/${val.slug}`}
+                            >
+                              {val.label}
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -165,9 +179,7 @@ export default function HeaderComponent() {
                 className="menu-item py-4 text-base font-bold uppercase transition-all duration-300 hover:text-[#4B50E6] lg:py-4"
                 key={`b${e.name}`}
               >
-                <Link href={e.slug}>
-                  {e.name}
-                </Link>
+                <Link href={e.slug}>{e.name}</Link>
               </li>
             );
           })}

@@ -7,32 +7,15 @@ import FiltersComponent from "@/components/Filters";
 import { GET_FILM_BY_FILTER } from "@/common/constant";
 import ListFilmItemComponent from "@/components/ListFilmItem";
 
-export default function ListFilmPage({ params }: { params: any }) {
-  const [filters, setFilters] = useState<any>({}); //Phim lẻ
+export default function ListFilmByCategoryPage({ params }: { params: any }) {
+  const [filters, setFilters] = useState<any>({}); //thể loại
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
     totalPages: 0,
     currentPage: 1,
   });
   const [fetchingData, setFetchingData] = useState(false);
-  const id = params.id;
-
-  // const getDataFilm = async (filters: any) => {
-  //   if (!filters) return;
-  //   setFetchingData(true);
-  //   const ress = await axiosInstance.post(GET_FILM_BY_FILTER, filters, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (ress.status === 200) {
-  //     setFetchingData(false);
-  //     setDataFilm(ress.data);
-  //   } else {
-  //     setFetchingData(false);
-  //     setDataFilm({ result: [] });
-  //   }
-  // };
+  const slug = params.slug;
 
   const getDataFilm = async (filters: any) => {
     if (!filters) {
@@ -68,12 +51,12 @@ export default function ListFilmPage({ params }: { params: any }) {
   };
 
   useEffect(() => {
-    if(!id) return
+    if (!slug) return;
     const newData = { ...filters };
-    newData.type = id;
+    newData.catogry = slug;
     setFilters(newData);
-    getDataFilm({ type: id });
-  }, [id]);
+    getDataFilm({ category: slug });
+  }, [slug]);
 
   return (
     <section className="list-film-container w-full">

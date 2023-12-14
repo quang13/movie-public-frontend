@@ -39,6 +39,7 @@ export default async function Film({ params }: { params: any }) {
                 blurDataURL="/blur_img.webp"
                 className="rounded-lg"
                 sizes="(min-width: 320px) 100vw"
+                loading="lazy"
               />
               {item?.thumbnail}
             </div>

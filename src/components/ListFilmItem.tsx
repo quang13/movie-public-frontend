@@ -36,12 +36,13 @@ export default function ListFilmItemComponent({ listFilm }: { listFilm: any[] })
         className="transition-all duration-300 hover:scale-105"
         sizes="(min-width: 320px) 100vw"
       />
+       <span className="quality-text absolute left-0 top-0 z-10 min-w-[72px] rounded bg-danger p-1 text-center text-xs">
+        {e.quality}
+      </span>
       <span className="status-text absolute left-0 top-[26px] min-w-[72px] rounded-br rounded-tr bg-blueSecondary p-1 text-center text-xs text-white">
         {calculateStatus(e.list_episode, e.total_episode)}
       </span>
-      <span className="quality-text absolute left-0 top-0 z-10 min-w-[72px] rounded bg-danger p-1 text-center text-xs">
-        {e.quality}
-      </span>
+     
       <p className="watch-full-text absolute bottom-0 left-0 text-xl font-bold text-danger">
         Xem phim
       </p>

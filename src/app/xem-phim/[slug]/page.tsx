@@ -49,8 +49,9 @@ function WatchFilm({ params }: { params: any }) {
       label: <p className="text-base font-medium">{el.name}</p>,
       children: (
         <div className="flex flex-wrap items-center justify-start gap-2">
-          {el.list_link.reverse().map((v: any) => (
+          {el.list_link.reverse().map((v: any, index: number) => (
             <button
+            key={`a${index}`}
               onClick={() => {
                 setCurrentEp(v);
               }}

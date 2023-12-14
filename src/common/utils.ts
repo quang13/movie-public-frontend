@@ -62,8 +62,9 @@ export async function getListCategory() {
   if (!isEmpty(list.data.list)) {
     const lst = list.data.list.map((e: any) => ({
       label: e.name,
-      value: e.name,
+      value: e.slug,
       isDeleted: e.isDeleted,
+      slug: e.slug
     }));
     dataList = lst;
   } else {
@@ -102,10 +103,11 @@ export async function getListCountry() {
   let dataList = [];
   const list = await axios.get("/film/country");
   if (!isEmpty(list.data.listCountry)) {
-    const lst = list.data.listCountry.map((e) => ({
+    const lst = list.data.listCountry.map((e: any) => ({
       label: e.name,
-      value: e.name,
+      value: e.slug,
       isDeleted: e.isDeleted,
+      slug: e.slug
     }));
     dataList = lst;
   } else {
@@ -118,7 +120,7 @@ export async function getListQuality() {
   let dataList = [];
   const list = await axios.get("/film/quality");
   if (!isEmpty(list.data.listQuality)) {
-    const lst = list.data.listQuality.map((e) => ({
+    const lst = list.data.listQuality.map((e: any) => ({
       label: e.name,
       value: e.name,
       isDeleted: e.isDeleted,

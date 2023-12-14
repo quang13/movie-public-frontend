@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { IFilm } from "@/config/types";
 import { IoIosStar } from "react-icons/io";
+import { isEmpty } from "lodash";
 
 export default function CommingSoonComponent() {
   const [dataFilm, setDataFilm] = useState<any>(null);
@@ -35,8 +36,19 @@ export default function CommingSoonComponent() {
     fetchData();
   }, []);
 
+  const toStar = (rate: any) => {
+    if (isEmpty(rate)) return `0/${TOTAL_STAR}`;
+    const x = (
+      rate.reduce((acc: any, current: any) => acc + current.star_number, 0) /
+      rate.length
+    ).toFixed(1);
+    if (Number.isNaN(x)) {
+      return `0/${TOTAL_STAR}`;
+    } else `${x}/${TOTAL_STAR}`;
+  };
+
   return (
-    <div className="comming-soon-container grid grid-cols-2 sm:grid-cols-3 gap-2 2lg:block ">
+    <div className="comming-soon-container 2lg:block grid grid-cols-2 gap-2 sm:grid-cols-3 ">
       {loading || dataFilm === null ? (
         <Spinner />
       ) : dataFilm.length === 0 ? (
@@ -44,31 +56,26 @@ export default function CommingSoonComponent() {
       ) : (
         dataFilm.result.map((e: IFilm) => (
           <div
-            className="relative flex flex-col 2lg:flex-row w-full items-start gap-2 md:gap-4 py-2 2lg:border-b border-b-[#5142FC] cursor-pointer transition duration-300 hover:text-blueSecondary"
+            className="2lg:flex-row 2lg:border-b relative flex w-full cursor-pointer flex-col items-start gap-2 border-b-[#5142FC] py-2 transition duration-300 hover:text-blueSecondary md:gap-4"
             key={e.slug}
           >
-            <span className="block relative w-full max-w-[280px] 2lg:max-w-[75px] h-[343px] 2lg:h-[87px] border border-blue-200">
-            <Image
-              src={e.thumbnail}
-              fill              
-              sizes="(min-width: 320px) 100vw"
-              alt={e.title as string}
-              className="object-cover"
-              placeholder="blur"
-              blurDataURL="/blur_img.webp"
-            />
-
+            <span className="2lg:max-w-[75px] 2lg:h-[87px] relative block h-[343px] w-full max-w-[280px] border border-blue-200">
+              <Image
+                src={e.thumbnail}
+                fill
+                sizes="(min-width: 320px) 100vw"
+                alt={e.title as string}
+                className="object-cover"
+                placeholder="blur"
+                blurDataURL="/blur_img.webp"
+                loading="lazy"
+              />
             </span>
             <div className="info-data">
               <p className="title text-sm capitalize">{e.title}</p>
               <p className="year text-xs opacity-80">{e.year_release}</p>
-              <p className="rates text-xs flex items-center gap-1">
-                {`${
-                  (e.rate!.reduce(
-                    (acc, current) => acc + current.star_number,
-                    0,
-                  ) / e.rate!.length).toFixed(1)
-                }/${TOTAL_STAR}`} <IoIosStar size={16} color={"orange"} />
+              <p className="rates flex items-center gap-1 text-xs">
+                {toStar(e.rate)} <IoIosStar size={16} color={"orange"} />
               </p>
             </div>
           </div>

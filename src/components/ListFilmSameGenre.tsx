@@ -27,7 +27,7 @@ export default async function ListFilmSameGenre({
           Phim cùng thể loại
         </p>
         {dataList.map((e: any) => (
-          <div className="mt-6" key={e._id}>
+          <div className="mt-6" key={e.slug}>
             <p className="title-head text-lg font-medium">{e.name}</p>
             {!isEmpty(e.result) && (
               <div className="relative mb-8 mt-4 flex flex-wrap items-start gap-2">
