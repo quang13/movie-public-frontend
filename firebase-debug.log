@@ -1,0 +1,62 @@
+[debug] [2023-12-14T05:02:13.687Z] ----------------------------------------------------------------------
+[debug] [2023-12-14T05:02:13.689Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\GOSU\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-12-14T05:02:13.689Z] CLI Version:   13.0.1
+[debug] [2023-12-14T05:02:13.689Z] Platform:      win32
+[debug] [2023-12-14T05:02:13.689Z] Node Version:  v20.10.0
+[debug] [2023-12-14T05:02:13.690Z] Time:          Thu Dec 14 2023 12:02:13 GMT+0700 (Indochina Time)
+[debug] [2023-12-14T05:02:13.690Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-14T05:02:13.740Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-14T05:02:13.740Z] > authorizing via signed-in user (nhatquang.fit@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\test\quang\movie
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-12-14T05:02:23.156Z] Using project from CLI flag: quangzone-movie-server-fe
+[debug] [2023-12-14T05:02:23.156Z] > refreshing access token with scopes: []
+[debug] [2023-12-14T05:02:23.157Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-12-14T05:02:23.158Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-14T05:02:23.367Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-12-14T05:02:23.368Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-14T05:02:23.373Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/quangzone-movie-server-fe [none]
+[debug] [2023-12-14T05:02:23.737Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/quangzone-movie-server-fe 200
+[debug] [2023-12-14T05:02:23.737Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/quangzone-movie-server-fe {"projectId":"quangzone-movie-server-fe","projectNumber":"813668311166","displayName":"quangzone-movie-server-fe","name":"projects/quangzone-movie-server-fe","resources":{"hostingSite":"quangzone-movie-server-fe"},"state":"ACTIVE","etag":"1_bac919e8-6fef-4226-859f-a791abafd300"}
+[info] i  Using project quangzone-movie-server-fe (quangzone-movie-server-fe) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at D:\test\quang\movie 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=839572744&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2023-12-14T05:02:24.444Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2023-12-14T05:02:24.445Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2023-12-14T05:02:24.982Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2023-12-14T05:02:24.983Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2023-12-14T05:02:24.988Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2023-12-14T05:02:25.531Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2023-12-14T05:02:25.531Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"quang13","id":32327000,"node_id":"MDQ6VXNlcjMyMzI3MDAw","avatar_url":"https://avatars.githubusercontent.com/u/32327000?v=4","gravatar_id":"","url":"https://api.github.com/users/quang13","html_url":"https://github.com/quang13","followers_url":"https://api.github.com/users/quang13/followers","following_url":"https://api.github.com/users/quang13/following{/other_user}","gists_url":"https://api.github.com/users/quang13/gists{/gist_id}","starred_url":"https://api.github.com/users/quang13/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/quang13/subscriptions","organizations_url":"https://api.github.com/users/quang13/orgs","repos_url":"https://api.github.com/users/quang13/repos","events_url":"https://api.github.com/users/quang13/events{/privacy}","received_events_url":"https://api.github.com/users/quang13/received_events","type":"User","site_admin":false,"name":"Nhat Quang","company":null,"blog":"","location":"Vietnam","email":null,"hireable":null,"bio":null,"twitter_username":null,"public_repos":4,"public_gists":0,"followers":7,"following":113,"created_at":"2017-09-27T09:39:42Z","updated_at":"2023-11-17T04:05:50Z","private_gists":0,"total_private_repos":25,"owned_private_repos":25,"disk_usage":136444,"collaborators":3,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] +  Success! Logged into GitHub as quang13 
+[info] 
