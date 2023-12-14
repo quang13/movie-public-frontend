@@ -35,6 +35,15 @@ export interface IFilm {
   performer?: string[];
   slug?: string | any;
   isDeleted?: boolean;
+  rate?: 
+    {
+      star_number: number;
+      _id?: string;
+      updatedAt?: string | Date;
+      createdAt?: string | Date;
+    }[],
+  
+  views?: number;
   updatedAt?: string | Date;
   createdAt?: string | Date;
 }

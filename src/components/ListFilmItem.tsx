@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { isEmpty } from "lodash";
 
 import { calculateStatus } from "@/common/utils";
 
@@ -35,6 +34,7 @@ export default function ListFilmItemComponent({ listFilm }: { listFilm: any[] })
         blurDataURL="/blur_img.webp"
         style={{ objectFit: "cover" }}
         className="transition-all duration-300 hover:scale-105"
+        sizes="(min-width: 320px) 100vw"
       />
       <span className="status-text absolute left-0 top-[26px] min-w-[72px] rounded-br rounded-tr bg-blueSecondary p-1 text-center text-xs text-white">
         {calculateStatus(e.list_episode, e.total_episode)}

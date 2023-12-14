@@ -38,6 +38,7 @@ export default async function Film({ params }: { params: any }) {
                 placeholder="blur"
                 blurDataURL="/blur_img.webp"
                 className="rounded-lg"
+                sizes="(min-width: 320px) 100vw"
               />
               {item?.thumbnail}
             </div>
@@ -59,12 +60,12 @@ export default async function Film({ params }: { params: any }) {
               )}
             </div>
             <div className="content-info w-full max-w-full rounded-lg p-4 shadow-[#14141F]">
-              <p className="flex items-center gap-8 py-2 text-sm">
+              <p className="flex items-center gap-4 py-2 text-sm">
                 <span className="status-text w-full max-w-[100px] font-semibold opacity-70">
                   Trạng thái
                 </span>
                 <span className="text detail-text">
-                  {calculateStatus(item?.list_episode, item?.total_episode)}
+                  {calculateStatus(item?.list_episode, item?.total_episode).trim()}
                 </span>
               </p>
               <p className="duration flex items-center gap-4 py-2 text-sm">

@@ -133,12 +133,11 @@ export default function HeaderComponent() {
               return (
                 <li
                   className="menu-item menu-item-has-children relative py-4 text-sm font-bold uppercase lg:py-4"
-                  key={e.name}
+                  key={`a${e.name}`}
                 >
                   {e.icon}
                   <Link
                     href={e.slug}
-                    alt=""
                     className="title-item flex items-center gap-1"
                   >
                     {e.name}
@@ -164,9 +163,9 @@ export default function HeaderComponent() {
             return (
               <li
                 className="menu-item py-4 text-base font-bold uppercase transition-all duration-300 hover:text-[#4B50E6] lg:py-4"
-                key={e.name}
+                key={`b${e.name}`}
               >
-                <Link href={e.slug} alt="">
+                <Link href={e.slug}>
                   {e.name}
                 </Link>
               </li>

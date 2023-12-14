@@ -38,10 +38,10 @@ export default function ListCartoon() {
 
   return (
     <div className=" list-cartoon-container">
-      <p className="big-title mb-4 text-xl font-bold text-white">
+      <p className="big-title mb-6 text-xl font-semibold text-white pb-2 border-b-2 border-b-[#5142fc7f] w-fit">
         Phim Hoạt Hình
       </p>
-      <div className="list-film-container flex w-full flex-wrap items-start gap-2">
+      <div className="list-film-container flex w-full flex-wrap items-start gap-2 mb-10">
         <ListFilmItemComponent listFilm={data.result} />
       </div>
     </div>

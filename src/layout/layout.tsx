@@ -14,6 +14,8 @@ import HeaderComponent from "./header";
 import FooterComponent from "./footer";
 import { IFilm } from "@/config/types";
 import { getListFilm } from "@/common/utils";
+import { BASE_URL, HOT_FILM } from "@/common/constant";
+import CommingSoonComponent from "@/components/CommingSoon";
 
 export default function LayoutComponent({
   children,
@@ -22,24 +24,45 @@ export default function LayoutComponent({
 }) {
   const [listFilm, setListFilm] = useState([]);
 
+  const getHotFilm = async () => {
+    const res = await fetch(`${BASE_URL}${HOT_FILM}`, {
+      method: "POST",
+      next: { revalidate: 1800, tags: ["hot-film"] },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setListFilm(data.result);
+    } else {
+      setListFilm([]);
+    }
+  };
+
   useEffect(() => {
-    getListFilm("/film/get-all-film")
-      .then((value) => {
-        if (isEmpty(value.result)) {
-          setListFilm([]);
-        } else {
-          setListFilm(value.result);
-        }
-      })
-      .catch(() => setListFilm([]));
+    // getListFilm("/film/get-all-film")
+    //   .then((value) => {
+    //     if (isEmpty(value.result)) {
+    //       setListFilm([]);
+    //     } else {
+    //       setListFilm(value.result);
+    //     }
+    //   })
+    //   .catch(() => setListFilm([]));
+    getHotFilm();
   }, []);
 
-  const items = listFilm.slice(0, 5).map((e: IFilm) => (
+  const items = listFilm.map((e: IFilm) => (
     <Link
       href={`/phim/${e.slug}`}
       className="film-item-slider relative block h-[252px] w-full px-4"
+      key={e.slug}
     >
-      <Image src={e.thumbnail} fill alt={e.title} />
+      <Image
+        src={e.thumbnail}
+        fill
+        alt={e.title as string}
+        placeholder="blur"
+        blurDataURL="/blur_img.webp"
+      />
     </Link>
   ));
 
@@ -91,10 +114,10 @@ export default function LayoutComponent({
             />
           )}
         </div>
-        <section className="ads-top-between-content flex flex-col sm:flex-row items-start justify-center gap-4 sm:gap-8">
+        <section className="ads-top-between-content flex flex-col items-start justify-center gap-4 sm:flex-row sm:gap-8">
           <div className="ads-group-top-left w-full sm:w-1/2">
             <Link
-              className="relative block h-[70px] w-full border border-danger"
+              className="relative block h-[70px] w-full border "
               href="#"
               target="_blank"
               rel="noopener noreferrer"
@@ -106,7 +129,7 @@ export default function LayoutComponent({
               />
             </Link>
             <Link
-              className="relative mt-4 block h-[70px] w-full border border-danger"
+              className="relative mt-4 block h-[70px] w-full border "
               href="#"
               target="_blank"
               rel="noopener noreferrer"
@@ -120,7 +143,7 @@ export default function LayoutComponent({
           </div>
           <div className="ads-group-top-right w-full sm:w-1/2">
             <Link
-              className="relative block h-[70px] w-full border border-danger"
+              className="relative block h-[70px] w-full border "
               href="#"
               target="_blank"
               rel="noopener noreferrer"
@@ -132,7 +155,7 @@ export default function LayoutComponent({
               />
             </Link>
             <Link
-              className="relative mt-4 block h-[70px] w-full border border-danger"
+              className="relative mt-4 block h-[70px] w-full border "
               href="#"
               target="_blank"
               rel="nofollow noopener noreferrer"
@@ -145,9 +168,9 @@ export default function LayoutComponent({
             </Link>
           </div>
         </section>
-        <div className="relative mt-8 flex items-start gap-4 w-full">
+        <div className="relative mt-8 flex w-full items-start gap-4">
           <Link
-            className="ads-left hidden relative md:block w-[120px] bg-danger h-[600px]"
+            className="ads-left relative hidden h-[600px] w-[120px] md:block"
             href="#"
             target="_blank"
             rel="nofollow noopener noreferrer"
@@ -160,14 +183,27 @@ export default function LayoutComponent({
           </Link>
           <div className="children-wrapper relative z-10 flex items-start gap-2">
             {children}
-            <div className="film-high-rate h-full">
-              <div className="high-rate-container h-[720px] w-[250px] xl:w-[300px] bg-danger">
-                Trending
+            <div className="w-full 2lg:w-fit">
+              <div className="comming-soon-films h-full">
+                <p className="big-title mb-6 border-b-2 border-dashed border-b-[#5142FC] pb-2 text-xl font-semibold text-white">
+                  Phim SẮP CHIẾU
+                </p>
+                <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
+                  <CommingSoonComponent />
+                </div>
+              </div>
+              <div className="comming-soon-films h-full mt-10">
+                <p className="big-title border-b-[#5142FC] pb-2 text-xl font-semibold text-white">
+                  Phim SẮP CHIẾU
+                </p>
+                <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
+                  <CommingSoonComponent />
+                </div>
               </div>
             </div>
           </div>
           <Link
-            className="ads-right relative hidden md:block w-[120px] bg-danger h-[600px]"
+            className="ads-right relative hidden h-[600px] w-[120px] md:block"
             href="#"
             target="_blank"
             rel="nofollow noopener noreferrer"

@@ -68,7 +68,7 @@ export default function TabCategoryFilmComponent() {
           </div>
         ))}
       </div>
-      <div className="list-film-container my-6 flex flex-wrap items-start gap-2">
+      <div className="list-film-container mt-6 mb-10 flex flex-wrap items-start gap-2">
         {isFetching ? (
           <div className=""><Spinner/></div>
         ) : (

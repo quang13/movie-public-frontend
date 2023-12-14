@@ -16,7 +16,7 @@ export function convertToSlug(text: string) {
 }
 
 export function toCapitalize(str: string) {
-  return str.replace(/\b\w/g, char => char.toUpperCase());
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 export function formatDateTime(dateTimeString: string) {
@@ -31,20 +31,24 @@ export function formatDateTime(dateTimeString: string) {
   });
 }
 
-export function calculateStatus(current_episode: any, totalEpisode: any) {
+export function calculateStatus(
+  current_episode: any,//list
+  totalEpisode: any,//number
+  quality?: any,
+) {
+  if (quality === "Trailer") return quality;
   if (totalEpisode === "Tập FULL") {
     return "Tập FULL";
-  } else if (+current_episode === +totalEpisode) {
+  } else if (+current_episode[0]?.list_link?.length === totalEpisode) {
     return `Full ${current_episode}/${totalEpisode}`;
   } else if (totalEpisode === "?") {
-    return `Tập ${current_episode}`;
-  } else if (+current_episode < +totalEpisode) {
-    return `Tập ${current_episode}/${totalEpisode}`;
+    return `Tập ${current_episode[0]?.list_link?.length}`;
+  } else if (+current_episode[0]?.list_link?.length < +totalEpisode) {
+    return `Tập ${current_episode[0]?.list_link?.length}/${totalEpisode}`;
   } else {
     return "Không xác định";
   }
 }
-
 
 export function getValueCategory(label: string) {
   if (!label) return;

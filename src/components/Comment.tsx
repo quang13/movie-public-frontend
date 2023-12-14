@@ -1,22 +1,23 @@
-import { Button, Col, Form, Input, Row } from "antd";
+"use client";
+
+import { Button, Form, Input } from "antd";
+import { useState } from "react";
 
 export default function CommentComponent() {
   const [form] = Form.useForm();
+  const [comment, setComment] = useState<any>(null);
+  const [dataCoomments, setDataComments] = useState<any[]>([]);
+
+  const handleChangeValueComment = (changed: any, value: any) => {
+    form.setFieldsValue(value);
+  };
   return (
-    <div className="comment-container mt-4 border-t border-t-blueSecondary pt-4">
+    <div className="comment-container mt-4 border-t border-t-blueSecondary pb-[400px] pt-4">
+      <p className="head-title mb-4 text-xl font-medium">Để lại bình luận</p>
       <Form
         form={form}
         layout="vertical"
-        onChange={(e) => {
-          console.log("qqwqwqw", e);
-        }}
-        method="POST"
-        action={(e) => {
-          console.log("action submit", e);
-        }}
-        onValuesChange={(x, y) => {
-          console.log("kkkkk", x, y);
-        }}
+        onValuesChange={handleChangeValueComment}
       >
         <Form.Item
           name="commenter"
