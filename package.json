@@ -12,6 +12,7 @@
     "@aka_theos/react-hls-player": "^1.0.0",
     "@types/lodash": "^4.14.202",
     "antd": "^5.11.5",
+    "axios": "^1.6.2",
     "lodash": "^4.17.21",
     "next": "14.0.3",
     "react": "^18",
