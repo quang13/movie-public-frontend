@@ -87,9 +87,13 @@ export default function HeaderComponent() {
 
   const path = usePathname();
 
-  console.log("ewewew", path);
+  
 
-  const changeLink = (e: any) => {};
+  const changeLink = (e: any) => {
+    if(path.startsWith("/_next") && e.slug==="/"){
+      return true
+    }
+  };
 
   return (
     <header
@@ -139,7 +143,7 @@ export default function HeaderComponent() {
               }
               return (
                 <li
-                  className="menu-item menu-item-has-children relative py-4 text-sm font-bold uppercase lg:py-4"
+                  className={`menu-item menu-item-has-children relative py-4 text-sm font-bold uppercase lg:py-4 ${changeLink(e) ? "active" : ""}`}
                   key={`a${e.name}`}
                 >
                   {e.icon}

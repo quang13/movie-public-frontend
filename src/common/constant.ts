@@ -1,7 +1,8 @@
 export const PROD = process.env.NODE_ENV === "production";
-export const BASE_URL = PROD
-  ? "https://deloy-server-movie.vercel.app"
-  : "http://localhost:53535";
+// export const BASE_URL = PROD
+//   ? "https://deloy-server-movie.vercel.app"
+//   : "http://localhost:53535";
+export const BASE_URL = "https://deloy-server-movie.vercel.app"
 
 export const acceptImage =
   "image/png,image/jpeg,image/webp,image/tiff,image/avif";
