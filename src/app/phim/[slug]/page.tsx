@@ -75,7 +75,7 @@ export default async function Film({ params }: { params: any }) {
                 </span>
                 <span className="text detail-text">{item?.duration}</span>
               </p>
-              {item?.total_episode! <= 1 && (
+              {item?.total_episode <= 1 && (
                 <p className="total-ep flex items-center gap-8 py-2 text-sm">
                   <span className="duration-text  w-[100px] font-semibold opacity-70">
                     Số tập

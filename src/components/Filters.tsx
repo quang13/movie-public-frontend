@@ -14,7 +14,6 @@ function FiltersComponent({
   filters,
   setFilters,
   fetching,
-  setFetching,
   onSubmit,
   keyword,
   isSearching = false,
@@ -22,7 +21,6 @@ function FiltersComponent({
   filters: any;
   setFilters: any;
   fetching: boolean;
-  setFetching: any;
   onSubmit: any;
   keyword?: string;
   isSearching?: boolean;
@@ -170,7 +168,11 @@ function FiltersComponent({
             </Form.Item>
           </Col>
         </Row>
+        
       </Form>
+      <div className="">{ quality}</div>
+      <div className="">{ country}</div>
+      <div className="">{ category}</div>
     </div>
   );
 }

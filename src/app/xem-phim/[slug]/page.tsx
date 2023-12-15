@@ -7,7 +7,7 @@ import axiosInstance from "@/common/axiosInstance";
 import CommentComponent from "@/components/Comment";
 import IframePlayer from "@/components/IframePlayer";
 import HLSPlayerComponent from "@/components/HLSPlayer";
-import { BASE_URL, GET_FILM_FROM_SLUG } from "@/common/constant";
+import { GET_FILM_FROM_SLUG } from "@/common/constant";
 
 const getDataFromSlug = async (slug: string) => {
   const ress = await axiosInstance.post(

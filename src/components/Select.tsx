@@ -2,10 +2,6 @@ import { Select } from "antd";
 import { isEmpty } from "lodash";
 import { CSSProperties } from "react";
 
-const handleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
-
 type OptionType = {
   label: string;
   value: any;

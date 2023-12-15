@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { BASE_URL, GET_FILM_BY_FILTER, TOTAL_STAR } from "@/common/constant";
+import { BASE_URL, GET_FILM_BY_FILTER, } from "@/common/constant";
 
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { IFilm } from "@/config/types";
 import { IoIosStar } from "react-icons/io";
-import { isEmpty } from "lodash";
 import Link from "next/link";
 import { toStar } from "@/common/utils";
 

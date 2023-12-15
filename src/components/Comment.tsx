@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function CommentComponent({ slug }: { slug: string }) {
   if (!slug) return null;
   const [form] = Form.useForm();
-  const [comment, setComment] = useState<any>(null);
+  // const [comment, setComment] = useState<any>(null);
   const [dataComments, setDataComments] = useState<any[]>([]);
 
   const handleChangeValueComment = (changed: any, value: any) => {
@@ -90,7 +90,7 @@ export default function CommentComponent({ slug }: { slug: string }) {
               {!isEmpty(e.replies) && (
                 <div className="child-list-comment-replies ml-2 border-l-2 border-l-blueSecondary pl-3">
                   {e.replies.map((val: any) => (
-                    <div className="child-replies-comment">
+                    <div className="child-replies-comment" key={e._id}>
                       <p className="replier-name w-fit border-b border-brandLinear pb-1 text-sm font-semibold">
                         User: {val.rep_name}
                       </p>
