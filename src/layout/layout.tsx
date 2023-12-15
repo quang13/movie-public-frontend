@@ -21,7 +21,6 @@ import {
 } from "@/common/utils";
 import { BASE_URL, GET_ADS, HOT_FILM } from "@/common/constant";
 import CommingSoonComponent from "@/components/CommingSoon";
-import { Modal } from "antd";
 
 export default function LayoutComponent({
   children,
@@ -298,13 +297,33 @@ export default function LayoutComponent({
       </main>
       <FooterComponent />
       <ToastContainer position="top-center" />
-      {/* {showModalContent && (
-        <div className="fixed z-10 left-0 top-0 h-full w-full bg-gray-900 bg-opacity-25">
-          <div className="absolute h-full max-h-[400px] w-full max-w-[720px] translate-x-1/2 translate-y-1/2 bg-blueSecondary backdrop-blur-xl">
-
+      {showModalContent && (
+        <div className="fixed left-0 top-0 z-[100] flex h-full w-full items-center justify-center bg-gray-900 bg-opacity-25">
+          <div className="relative h-full max-h-[400px] w-[90%] max-w-[720px]">
+            <Link
+              href={ads.content.link}
+              className="center-ads-neo relative mx-auto block h-[400px] w-full"
+              target="_blank"
+              rel="nofollow"
+            >
+              <Image
+                src={ads.content.image_url}
+                fill
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
+                className="object-cover"
+                alt=""
+              />
+            </Link>
+            <button
+              onClick={() => setShowModalContent(false)}
+              className="absolute flex items-center text-sm justify-center bg-blueSecondary bg-opacity-60 p-1.5 text-center top-0 right-0 shadow-md shadow-blueSecondary"
+            >
+              Tắt quảng cáo
+            </button>
           </div>
         </div>
-      )} */}
+      )}
     </StyledComponentsRegistry>
   );
 }

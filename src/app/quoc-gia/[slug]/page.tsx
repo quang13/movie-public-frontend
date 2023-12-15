@@ -6,20 +6,20 @@ import axiosInstance from "@/common/axiosInstance";
 import FiltersComponent from "@/components/Filters";
 import { GET_FILM_BY_FILTER } from "@/common/constant";
 import ListFilmItemComponent from "@/components/ListFilmItem";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { Input } from "antd";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Spinner from "@/components/Spinner";
 
-export default function ListFilmByCategoryPage({ params }: { params: any }) {
-  const [filters, setFilters] = useState<any>({}); //thể loại
+export default function ListFilmByCountryPage({ params }: { params: any }) {
+  const [filters, setFilters] = useState<any>({});
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPages] = useState(1);
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
     totalPages: 0,
     currentPage: 1,
   });
   const [fetchingData, setFetchingData] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPages] = useState(1);
   const slug = params.slug;
 
   const getDataFilm = async (filters: any, limit?: number, page?: number) => {
@@ -53,7 +53,6 @@ export default function ListFilmByCategoryPage({ params }: { params: any }) {
     } catch (error) {
       setFetchingData(false);
       setDataFilm({ result: [] });
-      setTotalPages(0);
       console.error("Error fetching data:", error);
     }
   };
@@ -71,7 +70,7 @@ export default function ListFilmByCategoryPage({ params }: { params: any }) {
   useEffect(() => {
     if (!slug) return;
     const newData = { ...filters };
-    newData.catogry = slug;
+    newData.category = slug;
     setFilters(newData);
     getDataFilm({ category: slug });
   }, [slug]);
@@ -91,7 +90,7 @@ export default function ListFilmByCategoryPage({ params }: { params: any }) {
       />
       <div className="data-list-film flex flex-wrap items-start gap-2">
         {fetchingData ? (
-          <div className="mx-auto my-8 flex w-full justify-center">
+          <div className="my-8 mx-auto w-full flex justify-center">
             <Spinner />
           </div>
         ) : (
