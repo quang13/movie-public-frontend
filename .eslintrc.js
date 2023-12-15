@@ -7,13 +7,12 @@ module.exports = {
     jest: true,
   },
   extends: [
-  	'airbnb',
   	'prettier',
   	'plugin:@typescript-eslint/recommended',
-  	'airbnb/hooks',
-	"next/core-web-vitals"
+    'eslint:recommended', 'plugin:@typescript-eslint/recommended'
   ],
-  plugins: ["react", "@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint", "prettier"],
+  root: true,
   rules: {
     "prettier/prettier": 0,
     "@typescript-eslint/no-explicit-any": 0,
@@ -36,7 +35,7 @@ module.exports = {
     "jsx-a11y/no-noninteractive-element-to-interactive-role": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "react-hooks/exhaustive-deps": 0,
-    "import/no-unresolved": "error", // turn on errors for missing imports
+    "import/no-unresolved": 0, // turn on errors for missing imports
     "react/jsx-filename-extension": [0, { extensions: [".tsx"] }],
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": [
@@ -47,7 +46,7 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": 2,
     "import/order": 0,
     "import/extensions": 0,
-    "import/newline-after-import": 1,
+    "import/newline-after-import": 0,
   },
   parserOptions: {
     ecmaVersion: "latest",

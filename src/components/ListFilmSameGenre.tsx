@@ -1,5 +1,4 @@
 import { BASE_URL, GET_DATA_FROM_LIST_CATEGORY } from "@/common/constant";
-import { IFilm } from "@/config/types";
 import React from "react";
 import { isEmpty } from "lodash";
 import ListFilmItemComponent from "./ListFilmItem";

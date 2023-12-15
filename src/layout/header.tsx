@@ -69,7 +69,7 @@ export default function HeaderComponent() {
 
     getListCountry()
       .then((value) => setCountries(value))
-      .catch((e) => setCountries([]));
+      .catch(() => setCountries([]));
   }, []);
 
   const onSubmitSearch = (e: any) => {
@@ -79,7 +79,7 @@ export default function HeaderComponent() {
     router.push(`/search?query=${keyword}`);
   };
 
-  const showMenuMobile = (e: any) => {
+  const showMenuMobile = () => {
     const listMenu = getElement(".menu-container");
     if (!listMenu) return;
     listMenu.classList.toggle("active");

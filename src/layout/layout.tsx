@@ -13,7 +13,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import HeaderComponent from "./header";
 import FooterComponent from "./footer";
 import { IFilm } from "@/config/types";
-import { getListFilm } from "@/common/utils";
 import { BASE_URL, HOT_FILM } from "@/common/constant";
 import CommingSoonComponent from "@/components/CommingSoon";
 
@@ -85,12 +84,12 @@ export default function LayoutComponent({
               touchTracking={false}
               disableDotsControls
               // disableButtonsControls
-              renderNextButton={(isDisabled) => (
+              renderNextButton={() => (
                 <button className="absolute right-5 top-[35%] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blueSecondary">
                   <FaChevronRight size={16} color="#fff" />
                 </button>
               )}
-              renderPrevButton={(isDisabled) => (
+              renderPrevButton={() => (
                 <button className="hover:opacity-55 absolute left-5 top-[35%] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blueSecondary hover:border-blueSecondary">
                   <FaChevronLeft size={16} color="#fff" />
                 </button>

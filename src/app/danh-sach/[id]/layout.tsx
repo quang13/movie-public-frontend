@@ -2,7 +2,7 @@ import { BASE_URL } from "@/common/constant";
 import NotFoundComponent from "@/components/404";
 import { TITLE_CONFIG } from "@/config/metadata-config";
 import { TYPE_LIST_FILM_SINGLE_OR_SERIES } from "@/config/types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: { id: string };
@@ -11,8 +11,8 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
+  { params }: Props,
+  // parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // read route params
   const slug = params.id;

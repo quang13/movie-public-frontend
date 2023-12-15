@@ -14,7 +14,6 @@ function FiltersComponent({
   filters,
   setFilters,
   fetching,
-  setFetching,
   onSubmit,
   keyword,
   isSearching = false,
@@ -22,7 +21,6 @@ function FiltersComponent({
   filters: any;
   setFilters: any;
   fetching: boolean;
-  setFetching: any;
   onSubmit: any;
   keyword?: string;
   isSearching?: boolean;
