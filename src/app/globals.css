@@ -15,9 +15,8 @@
 body {
   min-height: 100dvh;
   background: #14141F radial-gradient(41.68% 41.68% at 57.79% 54.71%, rgba(43, 24, 103, 0.24) 0%, rgba(56, 35, 131, 0.24) 48.71%, rgba(69, 40, 150, 0.24) 78.16%, rgba(118, 36, 142, 0.24) 100%);
-  backdrop-filter: blur(75px);
   color: #fff;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,7 +28,39 @@ input {
   outline: none;
 }
 
-.custom-filter-blur{
+.ads-fixed {
+  position: fixed;
+  top: 150px;
+  display: none !important;
+}
+
+@media only screen and (width>=768px) {
+  .ads-fixed {
+    display: block;
+  }
+}
+
+.ads-right {
+  right: 16px;
+}
+
+.ads-left {
+  left: 16px;
+}
+
+/* .main-container{
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+@media only screen and (width>=768px){
+  .main-container{
+    width: calc(100% - 300px);
+  }
+} */
+
+.custom-filter-blur {
   /* filter: blur(10px) brightness(50%) contrast(80%); */
   backdrop-filter: blur(60px);
 }
@@ -113,7 +144,7 @@ input {
 }
 
 .menu-container li ul li {
-width: 100%;
+  width: 100%;
 }
 
 @media only screen and (width>=768px) {
@@ -124,6 +155,7 @@ width: 100%;
     width: 100%;
     gap: 8px;
   }
+
   .menu-container li {
     border: none;
     text-align: center;
@@ -138,7 +170,8 @@ width: 100%;
     text-align: left;
     padding-left: 15px;
   }
-  .menu-container li ui li a{
+
+  .menu-container li ui li a {
     width: 100%;
     height: 100%;
     display: block;

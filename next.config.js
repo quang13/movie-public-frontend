@@ -21,6 +21,10 @@ const nextConfig = {
         hostname: "picsum.photos",
         protocol: "https",
       },
+      {
+        hostname: "i.pinimg.com",
+        protocol: "https"
+      }
     ],
   },
   typescript: {

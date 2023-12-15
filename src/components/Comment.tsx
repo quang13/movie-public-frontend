@@ -4,6 +4,7 @@ import { BASE_URL, GET_COMMENT } from "@/common/constant";
 import { Button, Form, Input } from "antd";
 import { isEmpty } from "lodash";
 import { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 
 export default function CommentComponent({ slug }: { slug: string }) {
   if (!slug) return null;
@@ -21,12 +22,11 @@ export default function CommentComponent({ slug }: { slug: string }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ slug: slug }),
+      body: JSON.stringify({ slug: slug, limit: 3 }),
       next: { revalidate: 1800, tags: ["get-comment"] },
     });
     if (res.ok) {
       const data = await res.json();
-      console.log("ewewww", data)
       setDataComments(data.result);
     } else {
       setDataComments([]);
@@ -38,7 +38,7 @@ export default function CommentComponent({ slug }: { slug: string }) {
   }, []);
 
   return (
-    <div className="comment-container mt-4 border-t border-t-blueSecondary pb-[400px] pt-4">
+    <div className="comment-container mt-4 border-t border-t-blueSecondary pb-8 pt-4">
       <p className="head-title mb-4 text-xl font-medium">Để lại bình luận</p>
       <Form
         form={form}
@@ -83,10 +83,13 @@ export default function CommentComponent({ slug }: { slug: string }) {
         {!isEmpty(dataComments) &&
           dataComments?.map((e) => (
             <div className="parent-comment" key={e._id}>
-              <p className="username w-fit border-b border-b-blueSecondary text-base font-semibold">
-                User: {e.name}
+              <p className="username w-fit border-b border-b-blueSecondary text-base font-semibold flex items-center gap-1.5 pb-1 mt-2">
+                <span className=" rounded-full bg-[#5142FC] p-2 text-white">
+                  <FaRegUser size={14} />
+                </span>{" "}
+                {e.name}
               </p>
-              <p className="content text-sm my-1">Content: {e.content}</p>
+              <p className="content my-1 text-sm">Content: {e.content}</p>
               {!isEmpty(e.replies) && (
                 <div className="child-list-comment-replies ml-2 border-l-2 border-l-blueSecondary pl-3">
                   {e.replies.map((val: any) => (
@@ -94,7 +97,9 @@ export default function CommentComponent({ slug }: { slug: string }) {
                       <p className="replier-name w-fit border-b border-brandLinear pb-1 text-sm font-semibold">
                         User: {val.rep_name}
                       </p>
-                      <p className="reply-content text-sm">Content: {val.rep_content}</p>
+                      <p className="reply-content text-sm">
+                        Content: {val.rep_content}
+                      </p>
                     </div>
                   ))}
                 </div>

@@ -27,7 +27,7 @@ export default function TabCategoryFilmComponent() {
               ? "phim-le"
               : "phim-bo",
         },
-        limit: 10,
+        limit: 12,
       }),
       next: { revalidate: 1800, tags: ["list-film-tab-category"] },
     });

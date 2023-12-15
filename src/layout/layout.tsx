@@ -13,9 +13,15 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import HeaderComponent from "./header";
 import FooterComponent from "./footer";
 import { IFilm } from "@/config/types";
-import { formatNumber,toStar } from "@/common/utils";
-import { BASE_URL, HOT_FILM } from "@/common/constant";
+import {
+  formatNumber,
+  getAllElement,
+  getElement,
+  toStar,
+} from "@/common/utils";
+import { BASE_URL, GET_ADS, HOT_FILM } from "@/common/constant";
 import CommingSoonComponent from "@/components/CommingSoon";
+import { Modal } from "antd";
 
 export default function LayoutComponent({
   children,
@@ -23,6 +29,8 @@ export default function LayoutComponent({
   children: React.ReactNode;
 }) {
   const [listFilm, setListFilm] = useState([]);
+  const [ads, setAds] = useState<any>(null);
+  const [showModalContent, setShowModalContent] = useState(false);
 
   const getHotFilm = async () => {
     const res = await fetch(`${BASE_URL}${HOT_FILM}`, {
@@ -37,28 +45,50 @@ export default function LayoutComponent({
     }
   };
 
+  const getAds = async () => {
+    const res = await fetch(`${BASE_URL}${GET_ADS}`, {
+      method: "POST",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setAds(data.result.data);
+    } else setAds(null);
+  };
+
   useEffect(() => {
-    // getListFilm("/film/get-all-film")
-    //   .then((value) => {
-    //     if (isEmpty(value.result)) {
-    //       setListFilm([]);
-    //     } else {
-    //       setListFilm(value.result);
-    //     }
-    //   })
-    //   .catch(() => setListFilm([]));
     getHotFilm();
+    getAds();
   }, []);
+
+  const scrollYCheck = () => {
+    const y = window.scrollY;
+    if (y >= 420) {
+      getAllElement(".ads-fixed")?.map((e) => (e.style.display = "block"));
+    } else {
+      getAllElement(".ads-fixed")?.map((e) => (e.style.display = "none"));
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollYCheck);
+    return () => window.removeEventListener("scroll", scrollYCheck);
+  });
+
+  useEffect(() => {
+    if (!ads) return;
+    if (!ads.content) return;
+    setShowModalContent(true);
+  }, [ads]);
 
   const items = listFilm.map((e: IFilm, index) => (
     <Link
       href={`/phim/${e.slug}`}
-      className="film-item-slider relative flex h-[208px] w-full gap-4 rounded-xl"
+      className="film-item-slider relative flex h-[208px] w-full gap-4 rounded-xl transition-all duration-300"
       style={{ background: `url(${e.thumbnail}) 100% 100%` }}
       key={e.slug}
     >
-      <div className="absolute w-full h-full z-0 custom-filter-blur rounded-xl top-0 left-0"></div>
-      <div className="relative h-full w-2/5 overflow-hidden rounded-xl z-10">
+      <div className="custom-filter-blur absolute left-0 top-0 z-0 h-full w-full rounded-xl"></div>
+      <div className="relative z-10 h-full w-2/5 overflow-hidden rounded-xl">
         <Image
           src={e.thumbnail}
           fill
@@ -69,7 +99,7 @@ export default function LayoutComponent({
           blurDataURL="/blur_img.webp"
         />
       </div>
-      <div className=" w-3/5 relative pr-4 z-10">
+      <div className=" relative z-10 w-3/5 pr-4">
         <div className="info-detail relative flex h-full w-full flex-col justify-center">
           <p className="title mb-6 line-clamp-2 text-base font-semibold">
             {e.title}
@@ -102,13 +132,15 @@ export default function LayoutComponent({
             <AliceCarousel
               autoPlay
               autoPlayStrategy="all"
-              autoPlayInterval={5000}
+              autoPlayInterval={3000}
               // animationDuration={1000}
               animationType="slide"
               infinite
-              syncStateOnPropsUpdate
               touchTracking={false}
               disableDotsControls
+              // onSlideChange={(ev)=>{
+              //   console.log('ewewewe',ev)
+              // }}
               // disableButtonsControls
               renderNextButton={() => (
                 <button className="absolute right-5 top-[35%] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blueSecondary">
@@ -145,83 +177,66 @@ export default function LayoutComponent({
           )}
         </div>
         <section className="ads-top-between-content flex flex-col items-start justify-center gap-4 sm:flex-row sm:gap-8">
-          <div className="ads-group-top-left w-full sm:w-1/2">
-            <Link
-              className="relative block h-[70px] w-full border "
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
-                fill
-                alt=""
-                sizes="(min-width: 320px) 100vw"
-                loading="lazy"
-              />
-            </Link>
-            <Link
-              className="relative mt-4 block h-[70px] w-full border "
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
-                fill
-                alt=""
-                sizes="(min-width: 320px) 100vw"
-                loading="lazy"
-              />
-            </Link>
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+            {!isEmpty(ads) &&
+              !isEmpty(ads.header) &&
+              ads.header.map((e: any, i: number) => (
+                <Link
+                  className="relative block h-[70px] w-full border "
+                  href={e?.link}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  key={`a${i}${e.link}`}
+                >
+                  <Image
+                    src={e?.image_url}
+                    fill
+                    alt=""
+                    sizes="(min-width: 320px) 100vw"
+                    loading="lazy"
+                    blurDataURL="/blur_img.webp"
+                    placeholder="blur"
+                  />
+                </Link>
+              ))}
           </div>
-          <div className="ads-group-top-right w-full sm:w-1/2">
+        </section>
+        <div className="relative mt-8 flex w-full items-start gap-2">
+          {ads && ads.left && (
             <Link
-              className="relative block h-[70px] w-full border "
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
-                fill
-                alt=""
-                sizes="(min-width: 320px) 100vw"
-                loading="lazy"
-              />
-            </Link>
-            <Link
-              className="relative mt-4 block h-[70px] w-full border "
-              href="#"
+              className="ads-left ads-fixed relative hidden h-[600px] w-[120px] md:block"
+              href={ads.left.link}
               target="_blank"
               rel="nofollow noopener noreferrer"
             >
               <Image
-                src="https://chaolua3.live/images/08/720-x-100-VTM.gif"
+                src={ads.left.image_url}
+                fill
+                alt=""
+                sizes="(min-width: 320px) 100vw"
+                loading="lazy"
+                blurDataURL="/blur_img.webp"
+                placeholder="blur"
+              />
+            </Link>
+          )}
+          {ads && ads.right && (
+            <Link
+              className="ads-right ads-fixed relative hidden h-[600px] w-[120px] md:block"
+              href={ads.right.link}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <Image
+                src={ads.right.image_url}
                 fill
                 alt=""
                 sizes="(min-width: 320px) 100vw"
                 loading="lazy"
               />
             </Link>
-          </div>
-        </section>
-        <div className="relative mt-8 flex w-full items-start gap-4">
-          <Link
-            className="ads-left relative hidden h-[600px] w-[120px] md:block"
-            href="#"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <Image
-              src="https://chaolua3.live/images/08/120-x-600-VTM.gif"
-              fill
-              alt=""
-              sizes="(min-width: 320px) 100vw"
-              loading="lazy"
-            />
-          </Link>
-          <div className="children-wrapper relative z-10 flex items-start gap-2">
+          )}
+          <div className="children-wrapper relative z-10 flex items-start gap-2 md:mx-[128px]">
             {children}
             <div className="w-full 2lg:w-fit">
               <div className="comming-soon-films mt-6 h-full 2lg:mt-0">
@@ -242,34 +257,54 @@ export default function LayoutComponent({
               </div>
             </div>
           </div>
-          <Link
-            className="ads-right relative hidden h-[600px] w-[120px] md:block"
-            href="#"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <Image
-              src="https://chaolua3.live/images/08/120-x-600-VTM.gif"
-              fill
-              alt=""
-              sizes="(min-width: 320px) 100vw"
-              loading="lazy"
-            />
-          </Link>
-          <div className="fixed bottom-0 left-0 z-20 mx-auto flex w-full justify-center">
-            <div className="bottom-ads-neo relative h-[70px] w-full max-w-[720px] bg-danger">
-              <button
-                className="btn-close-bottom-ads absolute -right-[10px] -top-[15px] flex items-center justify-center rounded-full bg-gray-600 p-2"
-                type="button"
-              >
-                <IoMdClose size={16} />
-              </button>
+
+          {ads && ads.bottom && (
+            <div className="bottom-fixed fixed bottom-0 left-0 z-20 mx-auto flex w-full justify-center transition-all duration-500">
+              <div className="relative h-[70px] w-full max-w-[720px] shadow-lg shadow-blueSecondary">
+                <Link
+                  href={ads.bottom.link}
+                  className="bottom-ads-neo relative mx-auto block h-[70px] w-[90%] max-w-[720px] md:w-full"
+                  target="_blank"
+                  rel="nofollow"
+                >
+                  <Image
+                    src={ads.bottom.image_url}
+                    fill
+                    sizes="(min-width: 320px) 100vw"
+                    loading="lazy"
+                    className="object-cover"
+                    alt=""
+                  />
+                </Link>
+                <button
+                  className="btn-close-bottom-ads absolute -top-[15px] right-[10px] flex items-center justify-center rounded-full bg-gray-600 p-2 transition-all duration-200 hover:bg-danger hover:text-white md:-right-[10px]"
+                  type="button"
+                  onClick={() => {
+                    const bottomFixed = getElement(
+                      ".bottom-fixed"
+                    ) as HTMLElement;
+                    if (bottomFixed) {
+                      bottomFixed.style.visibility = "visible";
+                      bottomFixed.style.opacity = "0";
+                    }
+                  }}
+                >
+                  <IoMdClose size={16} />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
       <FooterComponent />
       <ToastContainer position="top-center" />
+      {/* {showModalContent && (
+        <div className="fixed z-10 left-0 top-0 h-full w-full bg-gray-900 bg-opacity-25">
+          <div className="absolute h-full max-h-[400px] w-full max-w-[720px] translate-x-1/2 translate-y-1/2 bg-blueSecondary backdrop-blur-xl">
+
+          </div>
+        </div>
+      )} */}
     </StyledComponentsRegistry>
   );
 }

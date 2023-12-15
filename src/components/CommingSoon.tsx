@@ -37,8 +37,6 @@ export default function CommingSoonComponent() {
     fetchData();
   }, []);
 
-
-
   return (
     <div className="comming-soon-container 2lg:block grid grid-cols-2 gap-2 sm:grid-cols-3 ">
       {loading || dataFilm === null ? (
@@ -52,7 +50,7 @@ export default function CommingSoonComponent() {
             key={e.slug}
             href={`/phim/${e.slug}`}
           >
-            <span className="2lg:max-w-[75px] 2lg:h-[87px] relative block h-[343px] w-full max-w-[280px] border border-blue-200">
+            <span className="2lg:max-w-[75px] 2lg:h-[87px] relative block h-[280px] w-full max-w-[280px] border border-blue-200">
               <Image
                 src={e.thumbnail}
                 fill

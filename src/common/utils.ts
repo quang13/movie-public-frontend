@@ -7,6 +7,11 @@ export function getElement(classOrId: string) {
   return el;
 }
 
+export function getAllElement(classOrTag: string) {
+  const els = document.querySelectorAll(classOrTag);
+  return Array.from(els) as HTMLElement[];
+}
+
 export function convertToSlug(text: string) {
   return text
     .toLowerCase()
@@ -80,7 +85,7 @@ export function getValueCategory(label: string) {
 
 export async function getListCategory() {
   let dataList = [];
-  const list = await axios.get("/film/category");
+  const list = await axios.get("/film/category-client");
   if (!isEmpty(list.data.list)) {
     const lst = list.data.list.map((e: any) => ({
       label: e.name,

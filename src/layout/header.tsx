@@ -87,11 +87,9 @@ export default function HeaderComponent() {
 
   const path = usePathname();
 
-  
-
   const changeLink = (e: any) => {
-    if(path.startsWith("/_next") && e.slug==="/"){
-      return true
+    if (path.startsWith("/_next") && e.slug === "/") {
+      return true;
     }
   };
 
@@ -133,7 +131,7 @@ export default function HeaderComponent() {
           <IoIosMenu size={24} className="" />
         </button>
         <ul className="menu-container relative mx-auto flex max-w-[1440px] items-center justify-center gap-4">
-          {menus.map((e) => {
+          {menus.map((e, i) => {
             if (e.sub) {
               let submenu = [];
               if (e.name === "Thể loại") {
@@ -143,8 +141,10 @@ export default function HeaderComponent() {
               }
               return (
                 <li
-                  className={`menu-item menu-item-has-children relative py-4 text-sm font-bold uppercase lg:py-4 ${changeLink(e) ? "active" : ""}`}
-                  key={`a${e.name}`}
+                  className={`menu-item menu-item-has-children relative py-4 text-sm font-bold uppercase lg:py-4 ${
+                    changeLink(e) ? "active" : ""
+                  }`}
+                  key={`${i}${e.slug}`}
                 >
                   {e.icon}
                   <Link
@@ -157,10 +157,10 @@ export default function HeaderComponent() {
                   {!isEmpty(submenu) && (
                     <div className="submenu-container p-2">
                       <ul className="submenu w-full" id="submenu">
-                        {submenu?.map((val) => (
+                        {submenu?.map((val, it) => (
                           <li
                             role="button"
-                            key={val.slug}
+                            key={`b${val.slug}${it}`}
                             className="chilren-item relative border-b border-b-blueSecondary py-2 text-sm font-normal capitalize transition-all duration-300 hover:cursor-pointer hover:text-blueSecondary"
                           >
                             <Link
