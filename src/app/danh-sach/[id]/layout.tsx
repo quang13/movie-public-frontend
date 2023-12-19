@@ -41,7 +41,7 @@ export default function ListLayout({ children, params }: Props) {
   const isChecked = TYPE_LIST_FILM_SINGLE_OR_SERIES.includes(params.id);
   if (isChecked)
     return (
-      <Suspense fallback={<div className="loading-list">Dang tai....</div>}>
+      <Suspense fallback={<div className="loading-list h-screen w-screen flex items-center justify-center">Đang tải....</div>}>
         {children}
       </Suspense>
     );
