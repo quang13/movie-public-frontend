@@ -21,6 +21,10 @@ input {
   outline: none;
 }
 
+.ant-empty-description{
+  color: #fff !important;
+}
+
 .ads-fixed {
   position: fixed;
   top: 150px;
