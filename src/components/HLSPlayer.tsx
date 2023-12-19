@@ -7,6 +7,6 @@ export default function HLSPlayerComponent({
 }) {
   if (!videoLink) return null;
   return <div className="max-w-[980px] w-full">
-    <TheosPlayer src={videoLink} width="100%" style={{aspectRatio: "16/9"}} />
+    <TheosPlayer src={videoLink} width="100%" style={{aspectRatio: "16/9"}} height="360px" />
   </div>;
 }

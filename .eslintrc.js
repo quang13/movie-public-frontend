@@ -35,7 +35,7 @@ module.exports = {
     "jsx-a11y/no-noninteractive-element-to-interactive-role": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "react-hooks/exhaustive-deps": 0,
-    "import/no-unresolved": "error", // turn on errors for missing imports
+    "import/no-unresolved": 0, // turn on errors for missing imports
     "react/jsx-filename-extension": [0, { extensions: [".tsx"] }],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": 1,

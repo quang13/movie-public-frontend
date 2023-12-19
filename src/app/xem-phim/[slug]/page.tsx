@@ -1,13 +1,15 @@
 "use client";
 
 import { Tabs } from "antd";
+import {FaCirclePlay} from "react-icons/fa6"
 import React, { useEffect, useState } from "react";
 
 import axiosInstance from "@/common/axiosInstance";
 import CommentComponent from "@/components/Comment";
 import IframePlayer from "@/components/IframePlayer";
-import HLSPlayerComponent from "@/components/HLSPlayer";
 import { GET_FILM_FROM_SLUG } from "@/common/constant";
+import HLSPlayerComponent from "@/components/HLSPlayer";
+import ListFilmSameGenre from "@/components/ListFilmSameGenre";
 
 const getDataFromSlug = async (slug: string) => {
   const ress = await axiosInstance.post(
@@ -17,7 +19,7 @@ const getDataFromSlug = async (slug: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-    },
+    }
   );
   if (ress.status != 200) return null;
   return ress.data.item;
@@ -51,7 +53,7 @@ function WatchFilm({ params }: { params: any }) {
         <div className="flex flex-wrap items-center justify-start gap-2">
           {el.list_link.reverse().map((v: any, index: number) => (
             <button
-            key={`a${index}`}
+              key={`a${index}`}
               onClick={() => {
                 setCurrentEp(v);
               }}
@@ -65,11 +67,18 @@ function WatchFilm({ params }: { params: any }) {
     setItemsTab(_itemsTab);
   }, [item]);
 
-  if (!item) return null;
+  if (!item)
+    return (
+      <div className="relative flex h-[360px] w-full max-w-[980px] animate-pulse items-center justify-center rounded-xl bg-brandLinear bg-opacity-20">
+        <FaCirclePlay size={44} />
+      </div>
+    );
 
   return (
     <section className="main-page watch-film-container mt-8 w-full">
-      <div className={`video-player-container relative w-full`}>
+      <div
+        className={`video-player-container bg relative w-full animate-pulse overflow-hidden rounded-xl border border-blueSecondary bg-opacity-50`}
+      >
         {currentEp ? (
           currentEp?.link.trim().endsWith("m3u8") ? (
             <HLSPlayerComponent videoLink={currentEp.link} />
@@ -82,20 +91,25 @@ function WatchFilm({ params }: { params: any }) {
       </div>
       <div className="film-info mt-4">
         <p className="head-title text-2xl font-medium capitalize">
-          Xem phim {item.title} - Tập {currentEp?.title}
+          Xem phim {item?.title} - Tập {currentEp?.title}
         </p>
-        <p className="original-title text italic">({item.secondary_title})</p>
-        <div className="border-t-overlay mt-6 border-t">
+        <p className="original-title text italic">({item?.secondary_title})</p>
+        <div className="mt-6 border-t border-t-overlay">
           <Tabs items={itemsTab} />
         </div>
-        <div className="description-data mt-2 py-2 border-t border-t-blueSecondary">
-          <span className="pb-1 border-b border-b-brandLinear">Giới thiệu phim</span>
+        <div className="description-data mt-2 border-t border-t-blueSecondary py-2">
+          <span className="border-b border-b-brandLinear pb-1">
+            Giới thiệu phim
+          </span>
           <p className="description-text mt-2 font-normal">
-            {item.description}
+            {item?.description}
           </p>
         </div>
       </div>
       <CommentComponent slug={item?.slug} />
+      <div className="list-film-container">
+        <ListFilmSameGenre listCategory={item.category}/>
+      </div>
     </section>
   );
 }

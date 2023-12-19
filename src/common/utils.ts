@@ -21,15 +21,34 @@ export function convertToSlug(text: string) {
     .replace(/[^a-z0-9]/g, "-");
 }
 
-export function toCapitalize(str: string) {
-  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+export function toCapitalize(inputText: string) {
+  // Tách đoạn văn bản thành các từ
+  const words = inputText.split(" ");
+
+  // Lặp qua từng từ và chuyển đổi chữ cái đầu thành chữ hoa
+  const capitalizedWords = words.map((word) => {
+    // Nếu từ rỗng, không cần chuyển đổi
+    if (word.length === 0) {
+      return "";
+    }
+
+    // Chuyển đổi chữ cái đầu của từ
+    const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
+
+    return capitalizedWord;
+  });
+
+  // Kết hợp lại các từ thành đoạn văn bản mới
+  const resultText = capitalizedWords.join(" ");
+
+  return resultText;
 }
 
 export function formatNumber(num: number) {
-  if(Number.isNaN(num)) return 0
+  if (Number.isNaN(num)) return 0;
   if (num >= 1000) {
     // Chuyển số thành dạng K, ví dụ: 1000 => 1K, 3600 => 3.6K
-    return (num / 1000).toFixed(1) + 'K';
+    return (num / 1000).toFixed(1) + "K";
   }
   // Trả về số nguyên nếu số không đạt yêu cầu
   return num.toString();
@@ -59,15 +78,15 @@ export function formatDateTime(dateTimeString: string) {
 }
 
 export function calculateStatus(
-  current_episode: any,//list
-  totalEpisode: any,//number
-  quality?: any,
+  current_episode: any, //list
+  totalEpisode: any, //number
+  quality?: any
 ) {
   if (quality === "Trailer") return quality;
   if (totalEpisode === "Tập FULL") {
     return "Tập FULL";
-  } else if (+current_episode[0]?.list_link?.length === totalEpisode) {
-    return `Full ${current_episode}/${totalEpisode}`;
+  } else if (+current_episode[0]?.list_link?.length >= totalEpisode) {
+    return `Full ${totalEpisode}/${totalEpisode}`;
   } else if (totalEpisode === "?") {
     return `Tập ${current_episode[0]?.list_link?.length}`;
   } else if (+current_episode[0]?.list_link?.length < +totalEpisode) {
@@ -91,7 +110,7 @@ export async function getListCategory() {
       label: e.name,
       value: e.slug,
       isDeleted: e.isDeleted,
-      slug: e.slug
+      slug: e.slug,
     }));
     dataList = lst;
   } else {
@@ -134,7 +153,7 @@ export async function getListCountry() {
       label: e.name,
       value: e.slug,
       isDeleted: e.isDeleted,
-      slug: e.slug
+      slug: e.slug,
     }));
     dataList = lst;
   } else {

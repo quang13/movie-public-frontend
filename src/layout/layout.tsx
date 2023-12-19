@@ -203,7 +203,7 @@ export default function LayoutComponent({
         <div className="relative mt-8 flex w-full items-start gap-2">
           {ads && ads.left && (
             <Link
-              className="ads-left ads-fixed relative hidden h-[600px] w-[120px] md:block"
+              className="ads-left ads-fixed relative hidden h-[500px] w-[120px] md:block"
               href={ads.left.link}
               target="_blank"
               rel="nofollow noopener noreferrer"
@@ -221,7 +221,7 @@ export default function LayoutComponent({
           )}
           {ads && ads.right && (
             <Link
-              className="ads-right ads-fixed relative hidden h-[600px] w-[120px] md:block"
+              className="ads-right ads-fixed relative hidden h-[500px] w-[120px] md:block"
               href={ads.right.link}
               target="_blank"
               rel="nofollow noopener noreferrer"
@@ -259,10 +259,10 @@ export default function LayoutComponent({
 
           {ads && ads.bottom && (
             <div className="bottom-fixed fixed bottom-0 left-0 z-20 mx-auto flex w-full justify-center transition-all duration-500">
-              <div className="relative h-[70px] w-full max-w-[720px] shadow-lg shadow-blueSecondary">
+              <div className="relative h-[70px] md:w-[80%] max-w-[645px] shadow-lg shadow-blueSecondary">
                 <Link
                   href={ads.bottom.link}
-                  className="bottom-ads-neo relative mx-auto block h-[70px] w-[90%] max-w-[720px] md:w-full"
+                  className="bottom-ads-neo relative mx-auto block h-[70px] w-full "
                   target="_blank"
                   rel="nofollow"
                 >
@@ -283,8 +283,7 @@ export default function LayoutComponent({
                       ".bottom-fixed"
                     ) as HTMLElement;
                     if (bottomFixed) {
-                      bottomFixed.style.visibility = "visible";
-                      bottomFixed.style.opacity = "0";
+                      bottomFixed.style.transform = "translateY(120px)";
                     }
                   }}
                 >
