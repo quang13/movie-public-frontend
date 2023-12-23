@@ -131,29 +131,16 @@ export default function LayoutComponent({
             <AliceCarousel
               autoPlay
               autoPlayStrategy="all"
-              autoPlayInterval={3000}
-              // animationDuration={1000}
+              autoPlayInterval={1500}
               animationType="slide"
               infinite
               touchTracking={false}
               disableDotsControls
-              // onSlideChange={(ev)=>{
-              //   console.log('ewewewe',ev)
-              // }}
-              // disableButtonsControls
-              renderNextButton={() => (
-                <button className="absolute right-5 top-[35%] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blueSecondary">
-                  <FaChevronRight size={16} color="#fff" />
-                </button>
-              )}
-              renderPrevButton={() => (
-                <button className="hover:opacity-55 absolute left-5 top-[35%] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blueSecondary hover:border-blueSecondary">
-                  <FaChevronLeft size={16} color="#fff" />
-                </button>
-              )}
+              renderNextButton={() => <FaChevronRight size={16} color="#fff" />}
+              renderPrevButton={() => <FaChevronLeft size={16} color="#fff" />}
               items={items}
               responsive={{
-                360: {
+                320: {
                   items: 1,
                 },
                 576: {
@@ -201,7 +188,7 @@ export default function LayoutComponent({
           </div>
         </section>
         <div className="relative mt-8 flex w-full items-start gap-2">
-          {ads && ads.left && (
+          {/* {ads && ads.left && (
             <Link
               className="ads-left ads-fixed relative hidden h-[500px] w-[120px] md:block"
               href={ads.left.link}
@@ -234,7 +221,7 @@ export default function LayoutComponent({
                 loading="lazy"
               />
             </Link>
-          )}
+          )} */}
           <div className="children-wrapper relative z-10 flex items-start gap-2 md:mx-[128px]">
             {children}
             <div className="w-full 2lg:w-fit">
@@ -259,7 +246,7 @@ export default function LayoutComponent({
 
           {ads && ads.bottom && (
             <div className="bottom-fixed fixed bottom-0 left-0 z-20 mx-auto flex w-full justify-center transition-all duration-500">
-              <div className="relative h-[70px] md:w-[80%] max-w-[645px] shadow-lg shadow-blueSecondary">
+              <div className="relative h-[70px] max-w-[645px] shadow-lg shadow-blueSecondary md:w-[80%]">
                 <Link
                   href={ads.bottom.link}
                   className="bottom-ads-neo relative mx-auto block h-[70px] w-full "
@@ -316,7 +303,7 @@ export default function LayoutComponent({
             </Link>
             <button
               onClick={() => setShowModalContent(false)}
-              className="absolute flex items-center text-sm justify-center bg-blueSecondary bg-opacity-60 p-1.5 text-center top-0 right-0 shadow-md shadow-blueSecondary"
+              className="absolute right-0 top-0 flex items-center justify-center bg-blueSecondary bg-opacity-60 p-1.5 text-center text-sm shadow-md shadow-blueSecondary"
             >
               Tắt quảng cáo
             </button>

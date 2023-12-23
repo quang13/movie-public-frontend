@@ -49,28 +49,6 @@ export async function generateMetadata(
   };
 }
 
-// export default function WatchFilmLayout({ children, params }: Props) {
-//   const slug = params.slug;
-
-//   // fetch data
-//   const product = fetch(`${BASE_URL}${GET_FILM_FROM_SLUG}`, {
-//     method: "POST",
-//     headers: {
-//       Accept: "application.json",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       slug: slug,
-//       type: "short",
-//     }),
-//   })
-//     .then(async (res) => await res.json())
-//     .then((value) => value)
-//     .catch(() => ({ item: null }));
-
-//   if (isEmpty(product.item)) return <div>Not Found</div>;
-//   return children;
-// }
 
 export default function WatchFilmLayout({ children, params }: Props) {
     const slug = params.slug;

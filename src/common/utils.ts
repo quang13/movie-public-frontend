@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 import axios from "./axiosInstance";
-import { TOTAL_STAR } from "./constant";
+import { GET_FILM_FROM_SLUG, TOTAL_STAR } from "./constant";
+import axiosInstance from "./axiosInstance";
 
 export function getElement(classOrId: string) {
   const el = document.querySelector(classOrId);
@@ -101,6 +102,20 @@ export function getValueCategory(label: string) {
   const result = label.toLowerCase().trim().replace(" ", "-");
   return result;
 }
+
+export const getDataFromSlug = async (slug: string) => {
+  const ress = await axiosInstance.post(
+    GET_FILM_FROM_SLUG,
+    { slug: slug },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (ress.status != 200) return null;
+  return ress.data.item;
+};
 
 export async function getListCategory() {
   let dataList = [];

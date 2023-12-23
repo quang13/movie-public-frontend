@@ -70,14 +70,14 @@ export default function ListFilmByCountryPage({ params }: { params: any }) {
   useEffect(() => {
     if (!slug) return;
     const newData = { ...filters };
-    newData.category = slug;
+    newData.country = slug;
     setFilters(newData);
-    getDataFilm({ category: slug });
+    getDataFilm({ country: slug });
   }, [slug]);
 
   useEffect(() => {
     if (!currentPage) return;
-    getDataFilm({ category: slug }, undefined, currentPage);
+    getDataFilm({ country: slug }, undefined, currentPage);
   }, [currentPage]);
 
   return (

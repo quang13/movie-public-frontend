@@ -17,23 +17,6 @@ export default function ListFilmPage({ params }: { params: any }) {
   const [fetchingData, setFetchingData] = useState(false);
   const id = params.id;
 
-  // const getDataFilm = async (filters: any) => {
-  //   if (!filters) return;
-  //   setFetchingData(true);
-  //   const ress = await axiosInstance.post(GET_FILM_BY_FILTER, filters, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (ress.status === 200) {
-  //     setFetchingData(false);
-  //     setDataFilm(ress.data);
-  //   } else {
-  //     setFetchingData(false);
-  //     setDataFilm({ result: [] });
-  //   }
-  // };
-
   const getDataFilm = async (filters: any) => {
     if (!filters) {
       setFetchingData(false);

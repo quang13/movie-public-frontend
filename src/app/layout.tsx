@@ -25,15 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense
+        {/* <Suspense
           fallback={
             <div className="mx-auto flex h-screen w-screen items-center justify-center">
               <Spinner />
             </div>
           }
-        >
+        > */}
           <LayoutComponent>{children}</LayoutComponent>
-        </Suspense>
+        {/* </Suspense> */}
       </body>
     </html>
   );

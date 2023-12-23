@@ -1,29 +1,14 @@
 "use client";
 
 import { Tabs } from "antd";
-import {FaCirclePlay} from "react-icons/fa6"
+import { FaCirclePlay } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 
-import axiosInstance from "@/common/axiosInstance";
 import CommentComponent from "@/components/Comment";
-import IframePlayer from "@/components/IframePlayer";
-import { GET_FILM_FROM_SLUG } from "@/common/constant";
+import IframePlayerComponent from "@/components/IframePlayer";
 import HLSPlayerComponent from "@/components/HLSPlayer";
 import ListFilmSameGenre from "@/components/ListFilmSameGenre";
-
-const getDataFromSlug = async (slug: string) => {
-  const ress = await axiosInstance.post(
-    GET_FILM_FROM_SLUG,
-    { slug: slug },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  if (ress.status != 200) return null;
-  return ress.data.item;
-};
+import { getDataFromSlug } from "@/common/utils";
 
 function WatchFilm({ params }: { params: any }) {
   const [currentEp, setCurrentEp] = useState<any>();
@@ -79,14 +64,10 @@ function WatchFilm({ params }: { params: any }) {
       <div
         className={`video-player-container bg relative w-full animate-pulse overflow-hidden rounded-xl border border-blueSecondary bg-opacity-50`}
       >
-        {currentEp ? (
-          currentEp?.link.trim().endsWith("m3u8") ? (
-            <HLSPlayerComponent videoLink={currentEp.link} />
-          ) : (
-            <IframePlayer videoLink={currentEp.link} />
-          )
+        {currentEp?.link.trim().endsWith("m3u8") ? (
+          <HLSPlayerComponent videoLink={currentEp?.link} />
         ) : (
-          <div className="relative h-[360px] w-full max-w-[980px] animate-pulse rounded-xl bg-brandLinear"></div>
+          <IframePlayerComponent videoLink={currentEp?.link} />
         )}
       </div>
       <div className="film-info mt-4">
@@ -94,7 +75,7 @@ function WatchFilm({ params }: { params: any }) {
           Xem phim {item?.title} - Tập {currentEp?.title}
         </p>
         <p className="original-title text italic">({item?.secondary_title})</p>
-        <div className="mt-6 border-t border-t-overlay">
+        <div className="mt-2 border-t border-t-overlay">
           <Tabs items={itemsTab} />
         </div>
         <div className="description-data mt-2 border-t border-t-blueSecondary py-2">
@@ -108,7 +89,7 @@ function WatchFilm({ params }: { params: any }) {
       </div>
       <CommentComponent slug={item?.slug} />
       <div className="list-film-container">
-        <ListFilmSameGenre listCategory={item.category}/>
+        <ListFilmSameGenre listCategory={item?.category} />
       </div>
     </section>
   );

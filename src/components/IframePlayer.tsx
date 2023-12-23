@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function IframePlayer({ videoLink }: { videoLink: string }) {
+export default function IframePlayerComponent({ videoLink }: { videoLink: string }) {
   if (!videoLink) return null;
   return (
     <div className="normal-player-iframe w-full max-w-[980px]">

@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/common/constant";
 import NotFoundComponent from "@/components/404";
+import Spinner from "@/components/Spinner";
 import { TITLE_CONFIG } from "@/config/metadata-config";
 import { TYPE_LIST_FILM_SINGLE_OR_SERIES } from "@/config/types";
 import { Metadata } from "next";
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params}: Props,
+  { params }: Props
   // parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
@@ -22,12 +23,22 @@ export async function generateMetadata(
     // optionally access and extend (rather than replace) parent metadata
     //   const previousImages = (await parent).openGraph?.images || [];
     return {
-      title: slug === "phim-le" ? TITLE_CONFIG.phimle : TITLE_CONFIG.phimbo,
+      title:
+        slug === "phim-le"
+          ? TITLE_CONFIG.phimle
+          : slug === "phim-bo"
+            ? TITLE_CONFIG.phimbo
+            : slug === "phim-chieu-rap"
+              ? TITLE_CONFIG.phimchieurap
+              : TITLE_CONFIG.phimmoicapnhat,
       description:
-        slug === "phim-le" ? TITLE_CONFIG.phimle : TITLE_CONFIG.phimbo,
-      //   openGraph: {
-      //     images: [product.item.thumbnail, ...previousImages],
-      //   },
+        slug === "phim-le"
+          ? TITLE_CONFIG.phimle
+          : slug === "phim-bo"
+            ? TITLE_CONFIG.phimbo
+            : slug === "phim-chieu-rap"
+              ? TITLE_CONFIG.phimchieurap
+              : TITLE_CONFIG.phimmoicapnhat,
       metadataBase: new URL(BASE_URL),
     };
   }
@@ -41,7 +52,13 @@ export default function ListLayout({ children, params }: Props) {
   const isChecked = TYPE_LIST_FILM_SINGLE_OR_SERIES.includes(params.id);
   if (isChecked)
     return (
-      <Suspense fallback={<div className="loading-list h-screen w-screen flex items-center justify-center">Đang tải....</div>}>
+      <Suspense
+        fallback={
+          <div className="loading-list mx-auto flex h-screen w-screen items-center justify-center p-0">
+            <Spinner />
+          </div>
+        }
+      >
         {children}
       </Suspense>
     );

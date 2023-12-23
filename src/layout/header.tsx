@@ -41,12 +41,12 @@ const menus = [
   },
   {
     name: "Phim mới",
-    slug: "#",
+    slug: "/danh-sach/phim-moi-cap-nhat",
     sub: false,
   },
   {
     name: "Phim chiếu rạp",
-    slug: "#",
+    slug: "/danh-sach/phim-chieu-rap",
     sub: false,
   },
   {

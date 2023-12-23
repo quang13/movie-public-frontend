@@ -48,4 +48,4 @@ export interface IFilm {
   createdAt?: string | Date;
 }
 
-export const TYPE_LIST_FILM_SINGLE_OR_SERIES = ["phim-le", "phim-bo"];
+export const TYPE_LIST_FILM_SINGLE_OR_SERIES = ["phim-le", "phim-bo", "phim-moi-cap-nhat", "phim-chieu-rap"];
