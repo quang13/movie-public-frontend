@@ -24,8 +24,8 @@ input {
 .alice-carousel__next-btn,
 .alice-carousel__prev-btn {
   position: absolute;
-  width: 40px !important;
-  height: 40px !important;
+  width: 64px !important;
+  height: 64px !important;
   top: 35%;
   display: flex !important;
   justify-content: center;
