@@ -1,14 +1,15 @@
 "use client";
 
-import { BASE_URL, GET_COMMENT } from "@/common/constant";
-import { Button, Form, Input } from "antd";
+// import { BASE_URL, GET_COMMENT } from "@/common/constant";
 import { isEmpty } from "lodash";
-import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { Button, Form, Input } from "antd";
+import { useForm } from "antd/es/form/Form";
+import React, { useEffect, useState } from "react";
 
 export default function CommentComponent({ slug, firstDataComment }: { slug: string, firstDataComment: any }) {
   if (!slug) return null;
-  const [form] = Form.useForm();
+  const [form] = useForm();
   // const [comment, setComment] = useState<any>(null);
   const [dataComments, setDataComments] = useState<any[]>([]);
 

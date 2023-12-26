@@ -1,47 +1,59 @@
-import { BASE_URL } from "@/common/constant";
+import { BASE_URL, GET_ONE_CATEGORY } from "@/common/constant";
 import NotFoundComponent from "@/components/404";
 import { TITLE_CONFIG } from "@/config/metadata-config";
-import { TYPE_LIST_FILM_SINGLE_OR_SERIES } from "@/config/types";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
 type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { slug: string };
+  // searchParams: { [key: string]: string | string[] | undefined };
   children: React.ReactNode;
 };
 
 export async function generateMetadata(
-  { params}: Props,
+  { params }: Props
   // parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const slug = params.id;
-
-  if (TYPE_LIST_FILM_SINGLE_OR_SERIES.includes(slug)) {
-    // optionally access and extend (rather than replace) parent metadata
-    //   const previousImages = (await parent).openGraph?.images || [];
+  const slug = params.slug;
+  const res = await fetch(`${BASE_URL}${GET_ONE_CATEGORY}?slug=${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  });
+  if (res.ok) {
+    const item = await res.json();
     return {
-      title: slug === "phim-le" ? TITLE_CONFIG.phimle : TITLE_CONFIG.phimbo,
-      description:
-        slug === "phim-le" ? TITLE_CONFIG.phimle : TITLE_CONFIG.phimbo,
-      //   openGraph: {
-      //     images: [product.item.thumbnail, ...previousImages],
-      //   },
+      title: `Danh sách phim theo Thể loại ${item.result.name}`,
+      description: TITLE_CONFIG.home,
       metadataBase: new URL(BASE_URL),
     };
   }
+
   return {
     title: "Không tìm thấy trang này",
     description: TITLE_CONFIG.home,
   };
 }
 
-export default function ListLayout({ children, params }: Props) {
-  const isChecked = TYPE_LIST_FILM_SINGLE_OR_SERIES.includes(params.id);
-  if (isChecked)
+export default async function ListLayout({ children, params }: Props) {
+  const slug = params.slug;
+  const ress = await fetch(`${BASE_URL}${GET_ONE_CATEGORY}?slug=${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  }).then((value) => value.json());
+  if (ress.result)
     return (
-      <Suspense fallback={<div className="loading-list w-full h-full flex items-center justify-center p-0 mx-auto">Đang tải...</div>}>
+      <Suspense
+        fallback={
+          <div className="loading-list mx-auto flex h-full w-full items-center justify-center p-0">
+            Đang tải...
+          </div>
+        }
+      >
         {children}
       </Suspense>
     );

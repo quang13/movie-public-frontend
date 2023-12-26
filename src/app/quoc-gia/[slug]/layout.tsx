@@ -1,4 +1,4 @@
-import { BASE_URL, GET_ONE_CATEGORY } from "@/common/constant";
+import { BASE_URL, GET_ONE_COUNTRY } from "@/common/constant";
 import NotFoundComponent from "@/components/404";
 import { TITLE_CONFIG } from "@/config/metadata-config";
 import { Metadata } from "next";
@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 type Props = {
   params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  // searchParams: { [key: string]: string | string[] | undefined };
   children: React.ReactNode;
 };
 
@@ -16,7 +16,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const slug = params.slug;
-  const res = await fetch(`${BASE_URL}${GET_ONE_CATEGORY}?slug=${slug}`, {
+  const res = await fetch(`${BASE_URL}${GET_ONE_COUNTRY}?slug=${slug}`, {
     method: "GET",
     headers: {
       "Content-Type": "text/plain",

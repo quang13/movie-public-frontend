@@ -6,7 +6,7 @@ import { BASE_URL, GET_FILM_FROM_SLUG } from '@/common/constant'
 
 type Props = {
     params: { slug: string }
-    searchParams: { [key: string]: string | string[] | undefined },
+    // searchParams: { [key: string]: string | string[] | undefined },
     children: React.ReactNode
   }
 

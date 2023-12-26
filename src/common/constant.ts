@@ -1,4 +1,5 @@
 export const PROD = process.env.NODE_ENV === "production";
+export const isBrowser = typeof window !== 'undefined';
 export const BASE_URL = PROD
   ? "https://deloy-server-movie.vercel.app"
   : "http://localhost:53535";
@@ -20,3 +21,4 @@ export const HOT_FILM="/film/hot-film"
 export const GET_COMMENT="/film/get-comment"
 export const GET_ADS = "/ads/get-all"
 export const GET_ONE_CATEGORY="/film/category-one"
+export const GET_ONE_COUNTRY="/film/country-one"

@@ -4,8 +4,13 @@ import { isEmpty } from "lodash";
 import { BASE_URL, GET_FILM_FROM_SLUG } from "@/common/constant";
 import { FaPlay, FaUser } from "react-icons/fa";
 import Link from "next/link";
-import ListFilmSameGenre from "@/components/ListFilmSameGenre";
+// import ListFilmSameGenre from "@/components/ListFilmSameGenre";
 import { calculateStatus } from "@/common/utils";
+import dynamic from "next/dynamic";
+
+const ListFilmSameGenre = dynamic(
+  async () => await import("@/components/ListFilmSameGenre")
+);
 
 export default async function Film({ params }: { params: any }) {
   const slug = params.slug;
@@ -13,7 +18,6 @@ export default async function Film({ params }: { params: any }) {
   const dataSlug = await fetch(`${BASE_URL}${GET_FILM_FROM_SLUG}`, {
     method: "POST",
     headers: {
-      Accept: "application.json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
