@@ -218,3 +218,24 @@ export async function getListFilm(url: string, filters?: any) {
     return result.data;
   } else return null;
 }
+
+export async function getListData_v1() {
+  const listCategory = await getListCategory();
+  const listCountry = await getListCountry();
+  const listQuality = await getListQuality();
+  return { listCategory, listCountry, listQuality };
+}
+
+export async function getListData() {
+  try {
+    const [listCategory, listCountry, listQuality] = await Promise.all([
+      getListCategory(),
+      getListCountry(),
+      getListQuality(),
+    ]);
+    return { listCategory, listCountry, listQuality };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { listCategory: [], listCountry: [], listQuality: [] };
+  }
+}

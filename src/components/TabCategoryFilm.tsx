@@ -2,11 +2,12 @@
 
 import { BASE_URL, GET_FILM_BY_FILTER } from "@/common/constant";
 import { TAB_CATEGORY_FILM } from "@/common/enum";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ListFilmItemComponent from "./ListFilmItem";
 import Spinner from "./Spinner";
 
-export default function TabCategoryFilmComponent() {
+
+function TabCategoryFilmComponent() {
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
   });
@@ -78,3 +79,5 @@ export default function TabCategoryFilmComponent() {
     </div>
   );
 }
+
+export default React.memo(TabCategoryFilmComponent)

@@ -1,6 +1,8 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
+import React,
+{ useState, useEffect } 
+from "react";
 
 import axiosInstance from "@/common/axiosInstance";
 import FiltersComponent from "@/components/Filters";
@@ -10,7 +12,7 @@ import { Input } from "antd";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Spinner from "@/components/Spinner";
 
-export default function ListFilmByCountryPage({ params }: { params: any }) {
+function ListFilmByCountryPage({ params }: { params: any }) {
   const [filters, setFilters] = useState<any>({});
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPages] = useState(1);
@@ -126,3 +128,58 @@ export default function ListFilmByCountryPage({ params }: { params: any }) {
     </section>
   );
 }
+
+export default React.memo(ListFilmByCountryPage)
+
+
+// async function getDataFilm(filters: any, limit?: number, page?: number) {
+//   if (!filters) {
+//     return { result: [] };
+//   }
+
+//   try {
+//     const ress = await fetch(
+//       GET_FILM_BY_FILTER,
+//       {
+//         method: 'POST',
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ filters: { ...filters }, limit: limit, page: page })
+//       }
+//     );
+
+//     if (ress.ok) {
+//       const data = await ress.json();
+//       return data;
+//     } else {
+//       return { result: [] };
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return { result: [] };
+//   }
+// }
+
+// export default async function ListFilmByCountryPage({ params }: { params: any }) {
+//   const slug = params.slug;
+//   const dataFilm = await getDataFilm({ country: slug });
+
+//   return (
+//     <section className="list-film-container w-full">
+//       <FiltersComponent
+//         filters={{ country: slug }}
+//         onSubmit={getDataFilm}
+//       />
+//       <div className="data-list-film flex flex-wrap items-start gap-2">
+//         {dataFilm.result ? (
+//           <ListFilmItemComponent listFilm={dataFilm.result} />
+//         ) : (
+//           <div className="my-8 mx-auto w-full flex justify-center">
+//             <Spinner />
+//           </div>
+//         )}
+//       </div>
+//     </section>
+//   );
+// }

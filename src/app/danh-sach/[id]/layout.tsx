@@ -12,16 +12,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-export async function generateMetadata(
-  { params }: Props
-  // parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
+export function generateMetadata({ params }: Props): Metadata {
   const slug = params.id;
 
   if (TYPE_LIST_FILM_SINGLE_OR_SERIES.includes(slug)) {
-    // optionally access and extend (rather than replace) parent metadata
-    //   const previousImages = (await parent).openGraph?.images || [];
     return {
       title:
         slug === "phim-le"

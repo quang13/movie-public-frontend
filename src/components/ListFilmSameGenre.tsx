@@ -4,7 +4,7 @@ import { isEmpty } from "lodash";
 import ListFilmItemComponent from "./ListFilmItem";
 import { BASE_URL, GET_DATA_FROM_LIST_CATEGORY } from "@/common/constant";
 
-export default async function ListFilmSameGenre({
+async function ListFilmSameGenre({
   listCategory,
 }: {
   listCategory: string[];
@@ -39,5 +39,7 @@ export default async function ListFilmSameGenre({
       </section>
     );
   }
-  return <section className="">fdfdfdf</section>;
+  return null;
 }
+
+export default React.memo(ListFilmSameGenre)

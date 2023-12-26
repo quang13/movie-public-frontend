@@ -6,8 +6,8 @@ import LayoutComponent from "@/layout/layout";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { Suspense } from "react";
-import Spinner from "@/components/Spinner";
+// import { Suspense } from "react";
+// import Spinner from "@/components/Spinner";
 // import LoadingNavigate from "@/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });

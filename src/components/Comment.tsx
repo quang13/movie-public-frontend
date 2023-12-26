@@ -3,39 +3,44 @@
 import { BASE_URL, GET_COMMENT } from "@/common/constant";
 import { Button, Form, Input } from "antd";
 import { isEmpty } from "lodash";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 
-export default function CommentComponent({ slug }: { slug: string }) {
+export default function CommentComponent({ slug, firstDataComment }: { slug: string, firstDataComment: any }) {
   if (!slug) return null;
   const [form] = Form.useForm();
   // const [comment, setComment] = useState<any>(null);
   const [dataComments, setDataComments] = useState<any[]>([]);
 
+  useEffect(()=>{
+    if(!firstDataComment) return
+    setDataComments(firstDataComment)
+  }, [firstDataComment])
+
   const handleChangeValueComment = (changed: any, value: any) => {
     form.setFieldsValue(value);
   };
 
-  const fetchDataComment = async () => {
-    const res = await fetch(`${BASE_URL}${GET_COMMENT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ slug: slug, limit: 3 }),
-      next: { revalidate: 1800, tags: ["get-comment"] },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setDataComments(data.result);
-    } else {
-      setDataComments([]);
-    }
-  };
+  // const fetchDataComment = async () => {
+  //   const res = await fetch(`${BASE_URL}${GET_COMMENT}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ slug: slug, limit: 3 }),
+  //     next: { revalidate: 1800, tags: ["get-comment"] },
+  //   });
+  //   if (res.ok) {
+  //     const data = await res.json();
+  //     setDataComments(data.result);
+  //   } else {
+  //     setDataComments([]);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataComment();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataComment();
+  // }, []);
 
   return (
     <div className="comment-container mt-4 border-t border-t-blueSecondary pb-8 pt-4">
@@ -110,3 +115,5 @@ export default function CommentComponent({ slug }: { slug: string }) {
     </div>
   );
 }
+
+// export default React.memo(CommentComponent)

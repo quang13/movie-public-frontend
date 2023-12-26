@@ -1,14 +1,18 @@
 "use client";
 
 import { Tabs } from "antd";
+import dynamic from "next/dynamic";
 import { FaCirclePlay } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 
-import CommentComponent from "@/components/Comment";
-import IframePlayerComponent from "@/components/IframePlayer";
-import HLSPlayerComponent from "@/components/HLSPlayer";
-import ListFilmSameGenre from "@/components/ListFilmSameGenre";
 import { getDataFromSlug } from "@/common/utils";
+import HLSPlayerComponent from "@/components/HLSPlayer";
+import IframePlayerComponent from "@/components/IframePlayer";
+// import CommentComponent from "@/components/Comment";
+// import ListFilmSameGenre from "@/components/ListFilmSameGenre";
+
+const CommentComponent = dynamic(import("../../../components/Comment"));
+const ListFilmSameGenre = dynamic(import("@/components/ListFilmSameGenre"));
 
 function WatchFilm({ params }: { params: any }) {
   const [currentEp, setCurrentEp] = useState<any>();
@@ -79,15 +83,15 @@ function WatchFilm({ params }: { params: any }) {
           <Tabs items={itemsTab} />
         </div>
         <div className="description-data mt-2 border-t border-t-blueSecondary py-2">
-          <span className="border-b border-b-brandLinear pb-1">
+          <span className="border-b border-b-brandLinear pb-1 text-xl font-semibold">
             Giới thiệu phim
           </span>
-          <p className="description-text mt-2 font-normal">
+          <p className="description-text mt-2 font-normal text-sm leading-6">
             {item?.description}
           </p>
         </div>
       </div>
-      <CommentComponent slug={item?.slug} />
+      <CommentComponent slug={item?.slug} firstDataComment={item?.comments} />
       <div className="list-film-container">
         <ListFilmSameGenre listCategory={item?.category} />
       </div>

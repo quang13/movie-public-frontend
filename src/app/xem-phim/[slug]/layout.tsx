@@ -4,6 +4,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import NotFoundComponent from "@/components/404";
 import { BASE_URL, GET_FILM_FROM_SLUG } from "@/common/constant";
 import { toCapitalize } from "@/common/utils";
+import { TITLE_CONFIG } from "@/config/metadata-config";
 
 type Props = {
   params: { slug: string };
@@ -35,7 +36,7 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
   return {
     title: product.item
-      ? `Xem Phim ${toCapitalize(product.item.title)}`
+      ? `Xem Phim ${toCapitalize(product.item.title)} | ${TITLE_CONFIG.home}`
       : "Phim không tồn tại",
     description: product.item
       ? product.item.description ?? product.item.title

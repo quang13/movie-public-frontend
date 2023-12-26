@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { BASE_URL, GET_FILM_BY_FILTER, } from "@/common/constant";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { IFilm } from "@/config/types";
 import { IoIosStar } from "react-icons/io";
 import Link from "next/link";
 import { toStar } from "@/common/utils";
 
-export default function CommingSoonComponent() {
+function CommingSoonComponent() {
   const [dataFilm, setDataFilm] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const fetchData = async () => {
@@ -75,3 +75,5 @@ export default function CommingSoonComponent() {
     </div>
   );
 }
+
+export default React.memo(CommingSoonComponent)

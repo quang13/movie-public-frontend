@@ -31,9 +31,6 @@ function FiltersComponent({
   const [listCategory, setListCategory] = useState<any[]>([]);
   const [listQuality, setListQuality] = useState([]);
 
-  const [category, setCategory] = useState<any>(null);
-  const [country, setCountry] = useState<any>(null);
-  const [quality, setQuality] = useState<any>(null);
 
   // const [category, setCategory] = useState<any>(null)
 
@@ -50,21 +47,18 @@ function FiltersComponent({
   }, []);
 
   const handleCategoryChange = (value: any) => {
-    setCategory(value);
     const newData = { ...filters };
     newData.category = value;
     setFilters(newData);
   };
 
   const handleCountryChange = (value: any) => {
-    setCountry(value);
     const newData = { ...filters };
     newData.country = value;
     setFilters(newData);
   };
 
   const handleQualityChange = (value: any) => {
-    setQuality(value);
     const newData = { ...filters };
     newData.quality = value;
     setFilters(newData);
@@ -170,9 +164,6 @@ function FiltersComponent({
         </Row>
         
       </Form>
-      <div className="">{ quality}</div>
-      <div className="">{ country}</div>
-      <div className="">{ category}</div>
     </div>
   );
 }

@@ -1,9 +1,10 @@
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { calculateStatus } from "@/common/utils";
 
-export default function ListFilmItemComponent({
+function ListFilmItemComponent({
   listFilm,
 }: {
   listFilm: any[];
@@ -59,3 +60,5 @@ export default function ListFilmItemComponent({
     </Link>
   ));
 }
+
+export default React.memo(ListFilmItemComponent)
