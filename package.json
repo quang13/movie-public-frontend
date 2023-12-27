@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aka_theos/react-hls-player": "^1.0.0",
+    "@next/third-parties": "^14.0.4",
     "@types/lodash": "^4.14.202",
     "antd": "^5.11.5",
     "axios": "^1.6.2",

@@ -87,13 +87,13 @@ function FiltersComponent({
                 initialValue={keyword}
                 name="keyword"
                 label={
-                  <span className="text-white">Nhập từ khoá tìm kiếm</span>
+                  <span className="text-white">Bạn muốn tìm phim gì ?</span>
                 }
                 rules={[{ required: false }]}
               >
                 <Input
                   className="w-full"
-                  placeholder="Nhập từ khoá tìm kiếm"
+                  placeholder="Bạn muốn tìm phim gì ?"
                   autoFocus
                   onChange={handleSearchInputChange}
                 />

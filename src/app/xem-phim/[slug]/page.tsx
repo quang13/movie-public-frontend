@@ -1,9 +1,11 @@
+"use client"
+
 import React from "react";
 
 import { getDataFromSlug } from "@/common/utils";
 import HandleTabEpisode from "@/components/HandleTabEpisode";
 
-async function WatchFilm({ params }: { params: any }) {
+export default async function WatchFilm({ params }: { params: any }) {
   const slug = params.slug;
   if (!slug) return null;
   let item: any = null;
@@ -19,5 +21,3 @@ async function WatchFilm({ params }: { params: any }) {
 
   return <HandleTabEpisode item={item} />;
 }
-
-export default WatchFilm

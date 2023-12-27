@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 import LayoutComponent from "@/layout/layout";
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         > */}
           <LayoutComponent>{children}</LayoutComponent>
         {/* </Suspense> */}
+        <GoogleTagManager gtmId="GTM-KGZZZK5F" />
       </body>
     </html>
   );

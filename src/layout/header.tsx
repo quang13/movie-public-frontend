@@ -111,7 +111,7 @@ export default function HeaderComponent() {
             <input
               autoFocus
               className="fill-keyword w-full rounded-3xl border border-[#5142FC] p-2 pr-[95px] text-sm text-[#5142FC] sm:w-[300px]"
-              placeholder="Nhập từ khoá tìm kiếm..."
+              placeholder="Bạn muốn tìm phim gì ?..."
             />
             <Button
               className="btn-submit !absolute right-0 z-10 !h-full !rounded-none !rounded-br-3xl !rounded-tr-3xl !border-[#5142FC] !bg-[#5142FC] p-2 text-sm !text-white"
