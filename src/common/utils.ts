@@ -235,16 +235,16 @@ export async function getListFilm(url: string, filters?: any) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result = await response.json();
+    const jsonData = await response.json();
 
-    if (result && result.data) {
-      return result.data;
+    if (!isEmpty(jsonData.result)) {
+      return jsonData.result;
     } else {
-      return null;
+      return [];
     }
   } catch (error) {
     // console.error('An error occurred:', error);
-    return null;
+    return [];
   }
 }
 

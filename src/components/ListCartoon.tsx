@@ -23,35 +23,6 @@ async function fetchData() {
 }
 
 export default async function ListCartoon() {
-  // const [data, setData] = useState<any>({
-  //   result: null,
-  //   totalPages: 0,
-  //   currentPage: 1,
-  // });
-  // const fetchData = async () => {
-  //   const res = await fetch(`${BASE_URL}${GET_FILM_BY_FILTER}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ filters: { category: "Hoạt hình" }, limit: 8 }),
-  //     next: { revalidate: 1800, tags:["list-film-cartoon"] },
-  //   });
-  //   if (res.ok) {
-  //     const data_tmp = await res.json();
-  //     setData(data_tmp);
-  //   } else {
-  //     setData({
-  //       result: [],
-  //       totalPages: 0,
-  //       currentPage: 1,
-  //     });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   const data = await fetchData()
 

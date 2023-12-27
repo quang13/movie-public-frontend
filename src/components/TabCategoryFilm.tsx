@@ -5,7 +5,11 @@ import { TAB_CATEGORY_FILM } from "@/common/enum";
 import React, { useEffect, useState } from "react";
 import ListFilmItemComponent from "./ListFilmItem";
 import Spinner from "./Spinner";
+import dynamic from "next/dynamic";
 
+// const ListFilmItemComponent = dynamic(
+//   async () => await import("./ListFilmItem")
+// );
 
 export default function TabCategoryFilmComponent() {
   const [dataFilm, setDataFilm] = useState<any>({
@@ -50,6 +54,8 @@ export default function TabCategoryFilmComponent() {
     fetchData();
   }, [tabSelected]);
 
+  console.log("jjejeee", isFetching)
+
   return (
     <div className="list-film-tab-category w-full">
       <div className="flex w-full items-end gap-4">
@@ -69,9 +75,11 @@ export default function TabCategoryFilmComponent() {
           </div>
         ))}
       </div>
-      <div className="list-film-container mt-6 mb-10 flex flex-wrap items-start gap-2">
+      <div className="list-film-container mb-10 mt-6 flex flex-wrap items-start gap-2">
         {isFetching ? (
-          <div className=""><Spinner/></div>
+          <div className="">
+            <Spinner />
+          </div>
         ) : (
           <ListFilmItemComponent listFilm={dataFilm?.result} />
         )}
