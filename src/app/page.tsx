@@ -11,8 +11,8 @@ const TabCategoryFilmComponent = dynamic(
 export default function Home() {
   return (
     <section className="main-page mx-auto w-full ">
-      <TabCategoryFilmComponent />
-      {/* <ListNewFilms /> */}
+      {/* <TabCategoryFilmComponent />
+      <ListNewFilms /> */}
       <ListCartoon />
     </section>
   );
