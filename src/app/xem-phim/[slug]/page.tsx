@@ -1,23 +1,32 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { FaCirclePlay } from "react-icons/fa6";
 
 import { getDataFromSlug } from "@/common/utils";
 import HandleTabEpisode from "@/components/HandleTabEpisode";
 
-export default async function WatchFilm({ params }: { params: any }) {
+export default function WatchFilm({ params }: { params: any }) {
   const slug = params.slug;
   if (!slug) return null;
-  let item: any = null;
 
-  item = await getDataFromSlug(slug);
+  const [item, setItem] = useState<any>(null);
 
-  // if (!item)
-  //   return (
-  //     <div className="relative flex h-[360px] w-full max-w-[980px] animate-pulse items-center justify-center rounded-xl bg-brandLinear bg-opacity-20">
-  //       <FaCirclePlay size={44} />
-  //     </div>
-  //   );
+  const fetchData = async () => {
+    const data = await getDataFromSlug(slug);
+    setItem(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [slug]);
+
+  if (!item)
+    return (
+      <div className="relative flex h-[360px] w-full max-w-[980px] animate-pulse items-center justify-center rounded-xl bg-brandLinear bg-opacity-20">
+        <FaCirclePlay size={44} />
+      </div>
+    );
 
   return <HandleTabEpisode item={item} />;
 }
