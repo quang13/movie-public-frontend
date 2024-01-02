@@ -36,8 +36,10 @@ export default function TabCategoryFilmComponent() {
       }),
       next: { revalidate: 1800, tags: ["list-film-tab-category"] }, //1800 giây sẽ xác thực lại dữ liệu
     });
+
     if (res.ok) {
       const tmp = await res.json();
+      
       setDataFilm(tmp);
       setIsFetching(false);
     } else {
@@ -51,10 +53,10 @@ export default function TabCategoryFilmComponent() {
   };
 
   useEffect(() => {
+    // console.log("lelelee", tabSelected)
     fetchData();
   }, [tabSelected]);
 
-  console.log("jjejeee", isFetching)
 
   return (
     <div className="list-film-tab-category w-full">
