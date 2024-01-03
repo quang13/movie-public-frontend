@@ -64,7 +64,7 @@ export default function ListFilmPage({ params }: { params: any }) {
         filters={filters}
         setFilters={setFilters}
         fetching={fetchingData}
-        setFetching={setFetchingData}
+        // setFetching={setFetchingData}
         onSubmit={getDataFilm}
       />
       <div className="data-list-film flex flex-wrap items-start gap-2">

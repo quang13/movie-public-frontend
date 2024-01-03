@@ -7,7 +7,6 @@ import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import AliceCarousel from "react-alice-carousel";
-import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import HeaderComponent from "./header";
@@ -124,11 +123,11 @@ export default function LayoutComponent({
   ));
 
   return (
-    <StyledComponentsRegistry>
+    <>
       <HeaderComponent />
       <main className="main-container relative mx-auto w-full max-w-[1440px] px-4">
         <div className="hot-trending my-6">
-          {!isEmpty(listFilm) && (
+          {!isEmpty(listFilm) && listFilm?.length > 0 && (
             <AliceCarousel
               autoPlay
               autoPlayStrategy="all"
@@ -189,7 +188,7 @@ export default function LayoutComponent({
           </div>
         </section>
         <div className="relative mt-8 flex w-full items-start gap-2">
-          {/* {ads && ads.left && (
+          {ads && ads.left && (
             <Link
               className="ads-left ads-fixed relative hidden h-[500px] w-[120px] md:block"
               href={ads.left.link}
@@ -222,7 +221,7 @@ export default function LayoutComponent({
                 loading="lazy"
               />
             </Link>
-          )} */}
+          )}
           <div className="children-wrapper relative z-10 flex items-start gap-2 md:mx-[128px]">
             {children}
             <div className="w-full 2lg:w-fit">
@@ -231,7 +230,7 @@ export default function LayoutComponent({
                   Phim SẮP CHIẾU
                 </p>
                 <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
-                  <CommingSoonComponent />
+                  {/* <CommingSoonComponent /> */}
                 </div>
               </div>
               <div className="comming-soon-films mt-10 h-full">
@@ -239,7 +238,7 @@ export default function LayoutComponent({
                   Top 5 ĐÁNH GIÁ CAO
                 </p>
                 <div className="h-auto w-full 2lg:w-[250px] xl:w-[300px]">
-                  <Top5HighRatedComponent />
+                  {/* <Top5HighRatedComponent /> */}
                 </div>
               </div>
             </div>
@@ -311,6 +310,6 @@ export default function LayoutComponent({
           </div>
         </div>
       )}
-    </StyledComponentsRegistry>
+    </>
   );
 }

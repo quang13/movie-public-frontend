@@ -1,14 +1,14 @@
 "use client";
 
+import { Input } from "antd";
 import React, { useState, useEffect } from "react";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
+import Spinner from "@/components/Spinner";
 import axiosInstance from "@/common/axiosInstance";
 import FiltersComponent from "@/components/Filters";
 import { GET_FILM_BY_FILTER } from "@/common/constant";
 import ListFilmItemComponent from "@/components/ListFilmItem";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { Input } from "antd";
-import Spinner from "@/components/Spinner";
 
 export default function ListFilmByCategoryPage({ params }: { params: any }) {
   const [filters, setFilters] = useState<any>({}); //thể loại
@@ -74,7 +74,7 @@ export default function ListFilmByCategoryPage({ params }: { params: any }) {
     newData.catogry = slug;
     setFilters(newData);
     getDataFilm({ category: slug });
-  }, [slug]);
+  }, []);
 
   useEffect(() => {
     if (!currentPage) return;

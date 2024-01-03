@@ -23,8 +23,7 @@ async function fetchData() {
 }
 
 export default async function ListCartoon() {
-
-  const data = await fetchData()
+  const data = await fetchData();
 
   return (
     <div className=" list-cartoon-container">
