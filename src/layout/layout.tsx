@@ -159,6 +159,7 @@ export default function LayoutComponent({
                   items: 4,
                 },
               }}
+              ssrSilentMode
             />
           )}
         </div>

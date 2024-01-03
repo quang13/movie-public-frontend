@@ -63,11 +63,11 @@ function FiltersComponent({
     newData.quality = value;
     setFilters(newData);
   };
-  const handleSearchInputChange = (e: any) => {
-    const newData = { ...filters };
-    newData.keyword = e.target.value;
-    setFilters(newData);
-  };
+  // const handleSearchInputChange = (e: any) => {
+  //   const newData = { ...filters };
+  //   newData.keyword = e.target.value;
+  //   setFilters(newData);
+  // };
 
   return (
     <div className="filters-container w-full">
@@ -76,9 +76,14 @@ function FiltersComponent({
         layout="vertical"
         requiredMark
         className="rounded-lg p-3"
-        // onValuesChange={(x, y) => {
-        //   console.log("hehehee", x, y);
-        // }}
+        onValuesChange={(x, y) => {
+          if(x.keyword){
+            // console.log("hehehee keyword changed", x);
+            const newData = { ...filters };
+            newData.keyword = x.keyword;
+            setFilters(newData);
+          }
+        }}
       >
         {isSearching && (
           <Row gutter={16}>
@@ -95,7 +100,6 @@ function FiltersComponent({
                   className="w-full"
                   placeholder="Bạn muốn tìm phim gì ?"
                   autoFocus
-                  onChange={handleSearchInputChange}
                 />
               </Form.Item>
             </Col>

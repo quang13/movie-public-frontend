@@ -7,17 +7,20 @@ import ListFilmItemComponent from "@/components/ListFilmItem";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 export default function SearchPage({ searchParams }: { searchParams: any }) {
   const { query } = searchParams;
-  const [filters, setFilters] = useState<any>({}); //Phim lẻ
+  const [filters, setFilters] = useState<any>(
+    query ? { keyword: query  } : {}
+  ); //Phim lẻ
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
     totalPages: 0,
-    currentPage: 1,
+    currentPage: null,
   });
   const [fetchingData, setFetchingData] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<any>(null);
   const [totalPages, setTotalPages] = useState(0);
 
   const getDataFilm = async (filters: any) => {
@@ -36,7 +39,7 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       if (ress.status === 200) {
@@ -48,18 +51,20 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
         setDataFilm({ result: [] });
         setTotalPages(0);
       }
-    } catch (error) {
+    } catch (error: any) {
       setFetchingData(false);
       setDataFilm({ result: [] });
-      console.error("Error fetching data:", error);
+      toast.error(`Error fetching data: ${error?.message ?? error}`);
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    if (currentPage && currentPage < totalPages)
+      setCurrentPage((prev: any) => prev + 1);
   };
   const handlePrevPage = () => {
-    if (currentPage !== 1) setCurrentPage((prev) => prev - 1);
+    if (currentPage && currentPage !== 1)
+      setCurrentPage((prev: any) => prev - 1);
   };
 
   useEffect(() => {
@@ -78,7 +83,7 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
         filters={filters}
         setFilters={setFilters}
         fetching={fetchingData}
-        setFetching={setFetchingData}
+        // setFetching={setFetchingData}
         onSubmit={getDataFilm}
         keyword={query}
         isSearching={true}
@@ -96,17 +101,19 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
             <BsArrowLeft size={20} />
           </button>
           <Input
-            className="block !h-8 !w-8 text-center !bg-blueSecondary !text-white"
+            className="block !h-8 !w-8 !bg-blueSecondary text-center !text-white"
             value={currentPage}
             disabled
           />
-          <button
-            onClick={handleNextPage}
-            className="next-page flex h-8 w-8 items-center justify-center rounded-md transition-all duration-200 hover:bg-white hover:text-blueSecondary"
-            disabled={currentPage === totalPages}
-          >
-            <BsArrowRight size={20} />
-          </button>
+          {currentPage < totalPages && (
+            <button
+              onClick={handleNextPage}
+              className="next-page flex h-8 w-8 items-center justify-center rounded-md transition-all duration-200 hover:bg-white hover:text-blueSecondary"
+              disabled={currentPage === totalPages}
+            >
+              <BsArrowRight size={20} />
+            </button>
+          )}
         </div>
       )}
     </section>

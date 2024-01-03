@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Suspense
           fallback={
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="mx-auto flex h-screen w-screen items-center justify-center overflow-hidden">
               <Spinner />
             </div>
           }
