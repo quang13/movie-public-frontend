@@ -8,7 +8,7 @@ import { FaHome } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import React, { useState, useEffect } from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { getElement, getListCategory, getListCountry } from "@/common/utils";
 

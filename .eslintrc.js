@@ -39,6 +39,7 @@ module.exports = {
     "react/jsx-filename-extension": [0, { extensions: [".tsx"] }],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": 1,
+    "@typescript-eslint/no-var-requires":0,
     "react/jsx-props-no-spreading": [
       0,
       { html: "ignore", custom: "ignore", explicitSpread: "ignore" },

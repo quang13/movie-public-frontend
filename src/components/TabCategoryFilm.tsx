@@ -5,7 +5,7 @@ import { TAB_CATEGORY_FILM } from "@/common/enum";
 import React, { useEffect, useState } from "react";
 import ListFilmItemComponent from "./ListFilmItem";
 import Spinner from "./Spinner";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
 // const ListFilmItemComponent = dynamic(
 //   async () => await import("./ListFilmItem")

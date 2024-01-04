@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { isEmpty } from "lodash";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
@@ -20,12 +20,12 @@ import {
   toStar,
 } from "@/common/utils";
 import { BASE_URL, GET_ADS, HOT_FILM } from "@/common/constant";
-const CommingSoonComponent = dynamic(
-  async () => await import("@/components/CommingSoon")
-);
-const Top5HighRatedComponent = dynamic(
-  async () => await import("@/components/Top5HighRated")
-);
+// const CommingSoonComponent = dynamic(
+//   async () => await import("@/components/CommingSoon")
+// );
+// const Top5HighRatedComponent = dynamic(
+//   async () => await import("@/components/Top5HighRated")
+// );
 
 export default function LayoutComponent({
   children,

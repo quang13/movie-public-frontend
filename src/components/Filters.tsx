@@ -76,7 +76,7 @@ function FiltersComponent({
         layout="vertical"
         requiredMark
         className="rounded-lg p-3"
-        onValuesChange={(x, y) => {
+        onValuesChange={(x) => {
           if(x.keyword){
             // console.log("hehehee keyword changed", x);
             const newData = { ...filters };
