@@ -3,10 +3,11 @@ import type { Metadata, ResolvingMetadata } from 'next'
 
 import NotFoundComponent from "@/components/404";
 import { BASE_URL, GET_FILM_FROM_SLUG } from '@/common/constant'
+import { Suspense } from "react";
+import Spinner from "@/components/Spinner";
 
 type Props = {
     params: { slug: string }
-    // searchParams: { [key: string]: string | string[] | undefined },
     children: React.ReactNode
   }
 
@@ -15,10 +16,8 @@ type Props = {
     { params }: Props,
     parent: ResolvingMetadata
   ): Promise<Metadata> {
-    // read route params
     const slug = params.slug
    
-    // fetch data
     const product = await fetch(`${BASE_URL}${GET_FILM_FROM_SLUG}`, 
     {
         method: "POST",
@@ -32,7 +31,6 @@ type Props = {
         }),
       }).then((res) => res.json())
    
-    // optionally access and extend (rather than replace) parent metadata
     const previousImages = (await parent).openGraph?.images || []
     return {
       title: product.item
@@ -80,6 +78,6 @@ type Props = {
       if (isEmpty(product.item)) {
         return <NotFoundComponent/>;
       }
-      return children;
+      return <Suspense fallback={<Spinner/>}>{children}</Suspense>
     });
   }

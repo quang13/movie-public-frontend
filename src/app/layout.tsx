@@ -10,7 +10,6 @@ import "react-alice-carousel/lib/alice-carousel.css";
 
 import { Suspense } from "react";
 import Spinner from "@/components/Spinner";
-import LoadingNavigate from "@/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 

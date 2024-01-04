@@ -1,26 +1,24 @@
 "use client";
 
-import axiosInstance from "@/common/axiosInstance";
-import { GET_FILM_BY_FILTER } from "@/common/constant";
-import FiltersComponent from "@/components/Filters";
-import ListFilmItemComponent from "@/components/ListFilmItem";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { toast } from "react-toastify";
+
+import axiosInstance from "@/common/axiosInstance";
+import FiltersComponent from "@/components/Filters";
+import { GET_FILM_BY_FILTER } from "@/common/constant";
+import ListFilmItemComponent from "@/components/ListFilmItem";
 
 export default function SearchPage({ searchParams }: { searchParams: any }) {
   const { query } = searchParams;
-  const [filters, setFilters] = useState<any>(
-    query ? { keyword: query  } : {}
-  ); //Phim lẻ
+  const [filters, setFilters] = useState<any>(query ? { keyword: query } : {}); //Phim lẻ
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
     totalPages: 0,
-    currentPage: null,
+    currentPage: 1,
   });
   const [fetchingData, setFetchingData] = useState(false);
-  const [currentPage, setCurrentPage] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   const getDataFilm = async (filters: any) => {
@@ -54,7 +52,7 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
     } catch (error: any) {
       setFetchingData(false);
       setDataFilm({ result: [] });
-      toast.error(`Error fetching data: ${error?.message ?? error}`);
+      // toast.error(`Error fetching data: ${error?.message ?? error}`);
     }
   };
 

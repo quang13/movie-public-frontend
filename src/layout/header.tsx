@@ -6,9 +6,9 @@ import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
 import { FaHome } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
-import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { getElement, getListCategory, getListCountry } from "@/common/utils";
 
@@ -33,11 +33,13 @@ const menus = [
     name: "Quốc gia",
     slug: "#",
     sub: true,
+    startWith: "/quoc-gia/",
   },
   {
     name: "Thể loại",
     slug: "#",
     sub: true,
+    startWith: "/the-loai/",
   },
   {
     name: "Phim mới",
@@ -58,18 +60,29 @@ const menus = [
 
 export default function HeaderComponent() {
   const router = useRouter();
+  const path = usePathname();
 
   const [categories, setCategories] = useState<any[]>([]);
   const [countries, setCountries] = useState<any[]>([]);
 
-  useEffect(() => {
-    getListCategory()
-      .then((value) => setCategories(value))
-      .catch(() => setCategories([]));
+  const fetchDataList = async () => {
+    try {
+      const [categories, countries] = await Promise.all([
+        getListCategory(),
+        getListCountry(),
+      ]);
 
-    getListCountry()
-      .then((value) => setCountries(value))
-      .catch(() => setCountries([]));
+      setCategories(categories);
+      setCountries(countries);
+    } catch (error) {
+      // console.error("Error fetching data:", error);
+      setCategories([]);
+      setCountries([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataList();
   }, []);
 
   const onSubmitSearch = (e: any) => {
@@ -85,11 +98,47 @@ export default function HeaderComponent() {
     listMenu.classList.toggle("active");
   };
 
-  const path = usePathname();
+  // const changeLink = (e: any) => {
+  //   const link = e.slug || "/admin/post";
+  //   const tmp = path.split("/");
+  //   const _path = link === "/admin/post" ? "/admin/post" : `/${tmp[1]}`;
 
-  const changeLink = (e: any) => {
-    if (path.startsWith("/_next") && e.slug === "/") {
-      return true;
+  //   if (_path === link || `/${category}` === link) {
+  //     menuToggle.current?.classList.remove("active");
+  //     return true;
+  //   }
+  //   return false;
+  // };
+
+  // const changeLink = (e: (typeof menus)[0]) => {
+  //   const link = e.slug;
+  //   const childrenLink = getElement("#children-link") as HTMLAnchorElement;
+  //   if (link === "/" && path === "/") return true;
+  //   if (e.sub === true) {
+  //     if (!childrenLink || e.startWith) return false;
+  //     const value = childrenLink.pathname;
+  //     return e.startWith === value.startsWith(e.startWith);
+  //   } else {
+  //     if (link === path) return true;
+  //   }
+  //   return false;
+  // };
+
+  const changeLink = (menu: (typeof menus)[0]) => {
+    const link = menu.slug;
+
+    // Kiểm tra nếu đây là trang chính
+    if (link === "/" && path === "/") return true;
+
+    // Kiểm tra nếu đây là một menu con
+    if (menu.sub === true) {
+      // Nếu không có element con hoặc nếu menu bắt đầu với một giá trị cụ thể
+      if (!menu.startWith) return false;
+      // Kiểm tra xem đường dẫn hiện tại có bắt đầu với giá trị của menu hay không
+      return path.startsWith(menu.startWith);
+    } else {
+      // Kiểm tra xem liên kết có khớp với đường dẫn hiện tại không
+      return link === path;
     }
   };
 
@@ -133,11 +182,11 @@ export default function HeaderComponent() {
         <ul className="menu-container relative mx-auto flex max-w-[1440px] items-center justify-center gap-4">
           {menus.map((e, i) => {
             if (e.sub) {
-              let submenu = [];
+              let submenus = [];
               if (e.name === "Thể loại") {
-                submenu = categories;
+                submenus = categories;
               } else {
-                submenu = countries;
+                submenus = countries;
               }
               return (
                 <li
@@ -146,27 +195,36 @@ export default function HeaderComponent() {
                   }`}
                   key={`${i}${e.slug}`}
                 >
-                  {e.icon}
+                  {/* {e.icon} */}
                   <Link
                     href={e.slug}
-                    className="title-item flex items-center gap-1"
+                    className={`title-item flex items-center gap-1 ${
+                      changeLink(e) ? "text-[#5142FC]" : ""
+                    }`}
                   >
                     {e.name}
                     <IoChevronDownSharp size={16} />
                   </Link>
-                  {!isEmpty(submenu) && (
+                  {!isEmpty(submenus) && (
                     <div className="submenu-container p-2">
                       <ul className="submenu w-full" id="submenu">
-                        {submenu?.map((val, it) => (
+                        {submenus?.map((val, it) => (
                           <li
                             role="button"
                             key={`b${val.slug}${it}`}
-                            className="chilren-item relative border-b border-b-blueSecondary py-2 text-sm font-normal capitalize transition-all duration-300 hover:cursor-pointer hover:text-blueSecondary"
+                            className={`children-item relative border-b border-b-blueSecondary py-2 text-sm font-normal capitalize transition-all duration-300 hover:cursor-pointer hover:text-blueSecondary ${
+                              e.startWith + val.slug === path
+                                ? "active"
+                                : ""
+                            }`}
+                            onClick={() => {
+                              changeLink(e);
+                            }}
                           >
                             <Link
-                              href={`/${
-                                e.name === "Thể loại" ? "the-loai" : "quoc-gia"
-                              }/${val.slug}`}
+                              href={`${e.startWith}${val.slug}`}
+                              id="children-link"
+                              className="inline-block h-full w-full"
                             >
                               {val.label}
                             </Link>
@@ -180,8 +238,11 @@ export default function HeaderComponent() {
             }
             return (
               <li
-                className="menu-item py-4 text-base font-bold uppercase transition-all duration-300 hover:text-[#4B50E6] lg:py-4"
+                className={`menu-item relative py-4 text-base font-bold uppercase transition-all duration-300 hover:text-[#4B50E6] lg:py-4 ${
+                  changeLink(e) ? "active text-[#5142FC]" : ""
+                }`}
                 key={`b${e.name}`}
+                onClick={() => changeLink(e)}
               >
                 <Link href={e.slug}>{e.name}</Link>
               </li>

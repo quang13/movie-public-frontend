@@ -79,11 +79,12 @@ input {
   left: 16px;
 }
 
-.player-container{
+.player-container {
   /* max-height: 360px !important; */
   height: auto !important;
 }
-.player-container > video{
+
+.player-container>video {
   aspect-ratio: 16/9;
 }
 
@@ -171,7 +172,7 @@ input {
 }
 
 .menu-container li {
-  width: fit-content;
+  width: 100%;
   border-bottom: 1px solid rgba(81, 66, 252, 0.2);
 }
 
@@ -198,6 +199,7 @@ input {
   .menu-container li {
     border: none;
     text-align: center;
+    width: fit-content;
   }
 
   .menu-container li a {
@@ -243,6 +245,18 @@ input {
   display: none;
 }
 
+
+.menu-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transition: all 3s ease-in;
+  background: #5142FC;
+}
+
 .menu-item-has-children:hover a.title-item {
   color: #4B50E6;
   transition: all 0.3s ease;
@@ -267,20 +281,24 @@ input {
   background-color: transparent;
 }
 
-.submenu li:hover {
+
+.submenu li:hover,
+.submenu li.children-item.active {
   padding-left: 35px;
 }
 
-.submenu li:hover::before {
+.submenu li:hover::before,
+.children-item.active::before {
   background-color: #5142FC;
 }
 
-.submenu li:hover a {
+.submenu li:hover a,
+.children-item.active a {
   color: #5142FC;
 }
 
-.alice-carousel__stage-item{
-  overflow:visible;
+.alice-carousel__stage-item {
+  overflow: visible;
   padding: 10px 0 !important;
 }
 

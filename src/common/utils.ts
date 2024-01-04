@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import axios from "./axiosInstance";
-import { GET_FILM_FROM_SLUG, TOTAL_STAR } from "./constant";
+import { BASE_URL, GET_FILM_BY_FILTER, GET_FILM_FROM_SLUG, TOTAL_STAR } from "./constant";
 import axiosInstance from "./axiosInstance";
 
 export function getElement(classOrId: string) {
@@ -197,7 +197,7 @@ export async function getListLanguage() {
   let dataList = [];
   const list = await axios.get("/film/language");
   if (!isEmpty(list.data.listLanguage)) {
-    const lst = list.data.listLanguage.map((e) => ({
+    const lst = list.data.listLanguage.map((e: any) => ({
       label: e.name,
       value: e.name,
       isDeleted: e.isDeleted,
@@ -267,5 +267,25 @@ export async function getListData() {
   } catch (error) {
     console.error("Error fetching data:", error);
     return { listCategory: [], listCountry: [], listQuality: [] };
+  }
+}
+export async function fetchDataListCartoon() {
+  const res = await fetch(`${BASE_URL}${GET_FILM_BY_FILTER}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ filters: { category: "Hoạt hình" }, limit: 8 }),
+    next: { revalidate: 1800, tags: ["list-film-cartoon"] },
+  });
+  if (res.ok) {
+    const data_tmp = await res.json();
+    return data_tmp;
+  } else {
+    return {
+      result: [],
+      totalPages: 0,
+      currentPage: 1,
+    };
   }
 }
