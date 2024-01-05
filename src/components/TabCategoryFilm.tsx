@@ -1,25 +1,19 @@
 "use client";
 
-import { BASE_URL, GET_FILM_BY_FILTER } from "@/common/constant";
-import { TAB_CATEGORY_FILM } from "@/common/enum";
 import React, { useEffect, useState } from "react";
-import ListFilmItemComponent from "./ListFilmItem";
-import Spinner from "./Spinner";
-// import dynamic from "next/dynamic";
 
-// const ListFilmItemComponent = dynamic(
-//   async () => await import("./ListFilmItem")
-// );
+import { TAB_CATEGORY_FILM } from "@/common/enum";
+import ListFilmItemComponent from "./ListFilmItem";
+import { BASE_URL, GET_FILM_BY_FILTER } from "@/common/constant";
+
 
 export default function TabCategoryFilmComponent() {
   const [dataFilm, setDataFilm] = useState<any>({
     result: null,
   });
   const [tabSelected, setTabSelected] = useState(TAB_CATEGORY_FILM.SERIES_NEW);
-  const [isFetching, setIsFetching] = useState(false);
 
   const fetchData = async () => {
-    setIsFetching(true);
     const res = await fetch(`${BASE_URL}${GET_FILM_BY_FILTER}`, {
       method: "POST",
       headers: {
@@ -39,24 +33,23 @@ export default function TabCategoryFilmComponent() {
 
     if (res.ok) {
       const tmp = await res.json();
-      
+
       setDataFilm(tmp);
-      setIsFetching(false);
     } else {
       setDataFilm({
         result: [],
         totalPages: 0,
         currentPage: 1,
       });
-      setIsFetching(false);
     }
   };
 
   useEffect(() => {
-    // console.log("lelelee", tabSelected)
+    setDataFilm({
+      result: null,
+    });
     fetchData();
   }, [tabSelected]);
-
 
   return (
     <div className="list-film-tab-category w-full">
@@ -78,13 +71,7 @@ export default function TabCategoryFilmComponent() {
         ))}
       </div>
       <div className="list-film-container mb-10 mt-6 flex flex-wrap items-start gap-2">
-        {isFetching ? (
-          <div className="">
-            <Spinner />
-          </div>
-        ) : (
-          <ListFilmItemComponent listFilm={dataFilm?.result} />
-        )}
+        <ListFilmItemComponent listFilm={dataFilm?.result} />
       </div>
     </div>
   );
