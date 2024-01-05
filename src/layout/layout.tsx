@@ -225,6 +225,8 @@ export default function LayoutComponent({
                 alt=""
                 sizes="(min-width: 320px) 100vw"
                 loading="lazy"
+                placeholder="blur"
+                blurDataURL="/blur_img.webp"
               />
             </Link>
           )}
@@ -266,6 +268,8 @@ export default function LayoutComponent({
                     loading="lazy"
                     className="object-cover"
                     alt=""
+                    placeholder="blur"
+                    blurDataURL="/blur_img.webp"
                   />
                 </Link>
                 <button
@@ -302,9 +306,12 @@ export default function LayoutComponent({
                 src={ads.content.image_url}
                 fill
                 sizes="(min-width: 320px) 100vw"
-                loading="lazy"
+                // loading="lazy"
+                priority
                 className="object-cover"
                 alt=""
+                placeholder="blur"
+                blurDataURL="/blur_img.webp"
               />
             </Link>
             <button
