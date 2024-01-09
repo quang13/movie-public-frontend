@@ -98,7 +98,11 @@ export default async function Film({ params }: { params: any }) {
                   Thể loại
                 </span>
                 <span className="text detail-text">
-                  {item?.categories.join(", ")}
+                  {item?.categories
+                    ?.map((e: string) => (
+                      <Link href={`/the-loai/${e}`}>{e}</Link>
+                    ))
+                    }
                 </span>
               </p>
               <p className="duration flex items-center gap-4 py-2 text-sm">

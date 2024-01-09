@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Tabs } from "antd";
 import dynamic from "next/dynamic";
@@ -15,10 +15,8 @@ const ListFilmSameGenre = dynamic(
   async () => await import("@/components/ListFilmSameGenre")
 );
 
-
 function HandleTabEpisode({ item }: { item: any }) {
-
-    if (!item)
+  if (!item)
     return (
       <div className="relative flex h-[360px] w-full max-w-[980px] animate-pulse items-center justify-center rounded-xl bg-brandLinear bg-opacity-20">
         <FaCirclePlay size={44} />
@@ -36,7 +34,7 @@ function HandleTabEpisode({ item }: { item: any }) {
     }
     const _itemsTab: any = item.list_episode?.map((el: any, index: number) => ({
       key: index.toString(),
-      label: <p className="text-base font-medium">{el.name}</p>,
+      label: <p className="text-base font-medium text-white">{el.name}</p>,
       children: (
         <div className="flex flex-wrap items-center justify-start gap-2">
           {el.list_link.reverse().map((v: any, index: number) => (
@@ -45,7 +43,11 @@ function HandleTabEpisode({ item }: { item: any }) {
               onClick={() => {
                 setCurrentEp(v);
               }}
-              className="btn-ep rounded-sm bg-blueSecondary p-1.5 text-center text-white"
+              className={`btn-ep rounded-sm transition-all duration-300 ${
+                currentEp === v
+                  ? "bg-blueSecondary text-white"
+                  : "bg-white text-blueSecondary"
+              } border border-blueSecondary p-1.5  text-center`}
               type="button"
             >{`Tập ${v.title}`}</button>
           ))}

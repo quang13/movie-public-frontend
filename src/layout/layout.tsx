@@ -6,6 +6,7 @@ import { isEmpty } from "lodash";
 // import dynamic from "next/dynamic";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { GoStarFill } from "react-icons/go";
 import { ToastContainer } from "react-toastify";
 import AliceCarousel from "react-alice-carousel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -112,10 +113,11 @@ export default function LayoutComponent({
             Quốc gia: <span className=" font-normal"></span>
             {e.country?.join(", ")}
           </p>
-          <p className="rate text-sm font-semibold">
+          <p className="rate flex items-center gap-2 text-sm font-semibold">
             Đánh giá:{" "}
-            <span className="flex items-center gap-2 font-normal">
+            <span className="flex items-center gap-1 font-normal">
               {toStar(e.rate)}
+              <GoStarFill size={20} color="orange" />
             </span>
           </p>
           <p className="views">Views: {formatNumber(e.views as number)}</p>

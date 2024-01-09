@@ -1,6 +1,11 @@
 import { isEmpty } from "lodash";
 import axios from "./axiosInstance";
-import { BASE_URL, GET_FILM_BY_FILTER, GET_FILM_FROM_SLUG, TOTAL_STAR } from "./constant";
+import {
+  BASE_URL,
+  GET_FILM_BY_FILTER,
+  GET_FILM_FROM_SLUG,
+  TOTAL_STAR,
+} from "./constant";
 import axiosInstance from "./axiosInstance";
 
 export function getElement(classOrId: string) {
@@ -34,7 +39,8 @@ export function toCapitalize(inputText: string) {
     }
 
     // Chuyển đổi chữ cái đầu của từ
-    const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
+    const capitalizedWord =
+      word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
 
     return capitalizedWord;
   });
@@ -63,7 +69,8 @@ export const toStar = (rate: any) => {
   ).toFixed(1);
   if (Number.isNaN(x)) {
     return `0/${TOTAL_STAR}`;
-  } else `${x}/${TOTAL_STAR}`;
+  }
+  return `${x}/${TOTAL_STAR}`;
 };
 
 export function formatDateTime(dateTimeString: string) {
@@ -87,7 +94,7 @@ export function calculateStatus(
   if (totalEpisode === "Tập FULL") {
     return "Tập FULL";
   } else if (+current_episode[0]?.list_link?.length >= totalEpisode) {
-    return `Full ${totalEpisode}/${totalEpisode}`;
+    return `Hoàn tất ${totalEpisode}/${totalEpisode}`;
   } else if (totalEpisode === "?") {
     return `Tập ${current_episode[0]?.list_link?.length}`;
   } else if (+current_episode[0]?.list_link?.length < +totalEpisode) {
@@ -132,6 +139,10 @@ export async function getListCategory() {
     dataList = [];
   }
   return dataList;
+}
+
+export async function getSomeCategory(categories: any[]) {
+  const list = Array.isArray(categories) ? categories : [categories];
 }
 
 export async function deleteCategory(category: string) {
@@ -223,15 +234,15 @@ export async function getListLanguage() {
 export async function getListFilm(url: string, filters?: any) {
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(filters ?? {}),
     });
 
     if (!response.ok) {
-      return null
+      return null;
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
@@ -247,7 +258,6 @@ export async function getListFilm(url: string, filters?: any) {
     return [];
   }
 }
-
 
 export async function getListData_v1() {
   const listCategory = await getListCategory();

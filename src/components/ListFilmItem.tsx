@@ -14,7 +14,7 @@ export default function ListFilmItemComponent({
     return [1, 2, 3, 4, 5, 6, 7, 8].map((e) => (
       <div
         className="film-item item-film-skeleton animate-pulse bg-brandLinear"
-        key={e}
+        key={`a${e}`}
       />
     ));
   }
